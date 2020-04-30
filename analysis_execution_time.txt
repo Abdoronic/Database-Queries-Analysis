@@ -1,0 +1,157 @@
+Analyzation Execution Time:
+
+------------------------------
+
+Analyzing Query #1
+Finished Analyzing Query #1
+Time taken for the query is 18.635000 s
+
+------------------------------
+
+
+------------------------------
+
+Analyzing Query #2
+Finished Analyzing Query #2
+Time taken for the query is 199.486000 s
+
+------------------------------
+
+
+------------------------------
+
+Analyzing Query #3
+Finished Analyzing Query #3
+Time taken for the query is 0.303000 s
+
+------------------------------
+
+
+------------------------------
+
+Analyzing Query #4
+Finished Analyzing Query #4
+Time taken for the query is 24.244000 s
+
+------------------------------
+
+
+------------------------------
+
+Analyzing Query #5
+Finished Analyzing Query #5
+Time taken for the query is 0.615000 s
+
+------------------------------
+
+
+------------------------------
+
+Analyzing Query #6
+Finished Analyzing Query #6
+Time taken for the query is 1.332000 s
+
+------------------------------
+
+
+------------------------------
+
+Analyzing Query #7
+Finished Analyzing Query #7
+Time taken for the query is 0.354000 s
+
+------------------------------
+
+
+------------------------------
+
+Analyzing Query #8
+Finished Analyzing Query #8
+Time taken for the query is 1.339000 s
+
+------------------------------
+
+
+------------------------------
+
+Analyzing Query #9
+Finished Analyzing Query #9
+Time taken for the query is 20.697000 s
+
+------------------------------
+
+
+------------------------------
+
+Analyzing Query #10
+Finished Analyzing Query #10
+Time taken for the query is 1.753000 s
+
+------------------------------
+
+
+------------------------------
+
+Analyzing Query #11
+Finished Analyzing Query #11
+Time taken for the query is 17.647000 s
+
+------------------------------
+
+
+------------------------------
+
+Analyzing Query #12
+Finished Analyzing Query #12
+Time taken for the query is 4.243000 s
+
+------------------------------
+
+
+------------------------------
+
+Analyzing Query #13
+Finished Analyzing Query #13
+Time taken for the query is 0.954000 s
+
+------------------------------
+
+
+------------------------------
+
+Analyzing Query #14
+Finished Analyzing Query #14
+Time taken for the query is 1.011000 s
+
+------------------------------
+
+
+------------------------------
+
+Analyzing Query #15
+Finished Analyzing Query #15
+Time taken for the query is 1.298000 s
+
+------------------------------
+
+
+------------------------------
+
+Analyzing Query #16
+Finished Analyzing Query #16
+Time taken for the query is 1.229000 s
+
+------------------------------
+
+
+------------------------------
+
+Analyzing Query #17
+Finished Analyzing Query #17
+Time taken for the query is 200.117000 s
+
+------------------------------
+
+Total Time taken is 495.277000 s
+
+##############################
