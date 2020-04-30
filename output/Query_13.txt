@@ -1,0 +1,1752 @@
+Query #13:
+Connected to Database: "schema5"
+
+Running Query:
+ select country_name as team 
+from soccer_country 
+where country_id in(
+select team_id 
+from match_details 
+where play_stage='a'
+and 
+win_lose='w');
+
+Query Result Set:
+
+------------------------------
+
+team                          
+germany1                      
+germany2                      
+germany3                      
+germany4                      
+germany5                      
+germany6                      
+germany7                      
+germany8                      
+germany9                      
+germany10                     
+germany11                     
+germany12                     
+germany13                     
+germany14                     
+germany15                     
+germany16                     
+germany17                     
+germany18                     
+germany19                     
+germany20                     
+germany21                     
+germany22                     
+germany23                     
+germany24                     
+germany25                     
+germany26                     
+germany27                     
+germany28                     
+germany29                     
+germany30                     
+germany31                     
+germany32                     
+germany33                     
+germany34                     
+germany35                     
+germany36                     
+germany37                     
+germany38                     
+germany39                     
+germany40                     
+germany41                     
+germany42                     
+germany43                     
+germany44                     
+germany45                     
+germany46                     
+germany47                     
+germany48                     
+germany49                     
+germany50                     
+germany51                     
+germany52                     
+germany53                     
+germany54                     
+germany55                     
+germany56                     
+germany57                     
+germany58                     
+germany59                     
+germany60                     
+germany61                     
+germany62                     
+germany63                     
+germany64                     
+germany65                     
+germany66                     
+germany67                     
+germany68                     
+germany69                     
+germany70                     
+germany71                     
+germany72                     
+germany73                     
+germany74                     
+germany75                     
+germany76                     
+germany77                     
+germany78                     
+germany79                     
+germany80                     
+germany81                     
+germany82                     
+germany83                     
+germany84                     
+germany85                     
+germany86                     
+germany87                     
+germany88                     
+germany89                     
+germany90                     
+germany91                     
+germany92                     
+germany93                     
+germany94                     
+germany95                     
+germany96                     
+germany97                     
+germany98                     
+germany99                     
+germany100                    
+germany101                    
+germany102                    
+germany103                    
+germany104                    
+germany105                    
+germany106                    
+germany107                    
+germany108                    
+germany109                    
+germany110                    
+germany111                    
+germany112                    
+germany113                    
+germany114                    
+germany115                    
+germany116                    
+germany117                    
+germany118                    
+germany119                    
+germany120                    
+germany121                    
+germany122                    
+germany123                    
+germany124                    
+germany125                    
+
+
+End of Results
+The Size of the Result Set = 125
+
+##############################
+
+
+------------------------------
+
+Indicies Configuration #1:
+No Indicies Used
+
+------------------------------
+
+1. The Total Cost of the Plan = 12.34
+2. The Estimated Size of the Result Set = 125
+3. The Plan of the Query:
+{
+  "Total Cost": 12.34,
+  "Plans": [
+    {
+      "Parent Relationship": "Outer",
+      "Total Cost": 3.95,
+      "Relation Name": "soccer_country",
+      "Parallel Aware": false,
+      "Alias": "soccer_country",
+      "Node Type": "Seq Scan",
+      "Plan Width": 15,
+      "Startup Cost": 0.0,
+      "Plan Rows": 195
+    },
+    {
+      "Parent Relationship": "Inner",
+      "Total Cost": 4.92,
+      "Plans": [
+        {
+          "Parent Relationship": "Outer",
+          "Total Cost": 4.92,
+          "Relation Name": "match_details",
+          "Parallel Aware": false,
+          "Filter": "((play_stage \u003d \u0027a\u0027::bpchar) AND (win_lose \u003d \u0027w\u0027::bpchar))",
+          "Alias": "match_details",
+          "Node Type": "Seq Scan",
+          "Plan Width": 5,
+          "Startup Cost": 0.0,
+          "Plan Rows": 125
+        }
+      ],
+      "Parallel Aware": false,
+      "Node Type": "Hash",
+      "Plan Width": 5,
+      "Startup Cost": 4.92,
+      "Plan Rows": 125
+    }
+  ],
+  "Parallel Aware": false,
+  "Node Type": "Hash Join",
+  "Join Type": "Semi",
+  "Plan Width": 10,
+  "Startup Cost": 6.49,
+  "Hash Cond": "(soccer_country.country_id \u003d match_details.team_id)",
+  "Plan Rows": 125,
+  "Inner Unique": false
+}
+
+------------------------------
+
+Indicies Configuration #2:
+Index btree on column win_lose in table match_details
+
+------------------------------
+
+1. The Total Cost of the Plan = 12.34
+2. The Estimated Size of the Result Set = 125
+3. The Plan of the Query:
+{
+  "Total Cost": 12.34,
+  "Plans": [
+    {
+      "Parent Relationship": "Outer",
+      "Total Cost": 3.95,
+      "Relation Name": "soccer_country",
+      "Parallel Aware": false,
+      "Alias": "soccer_country",
+      "Node Type": "Seq Scan",
+      "Plan Width": 15,
+      "Startup Cost": 0.0,
+      "Plan Rows": 195
+    },
+    {
+      "Parent Relationship": "Inner",
+      "Total Cost": 4.92,
+      "Plans": [
+        {
+          "Parent Relationship": "Outer",
+          "Total Cost": 4.92,
+          "Relation Name": "match_details",
+          "Parallel Aware": false,
+          "Filter": "((play_stage \u003d \u0027a\u0027::bpchar) AND (win_lose \u003d \u0027w\u0027::bpchar))",
+          "Alias": "match_details",
+          "Node Type": "Seq Scan",
+          "Plan Width": 5,
+          "Startup Cost": 0.0,
+          "Plan Rows": 125
+        }
+      ],
+      "Parallel Aware": false,
+      "Node Type": "Hash",
+      "Plan Width": 5,
+      "Startup Cost": 4.92,
+      "Plan Rows": 125
+    }
+  ],
+  "Parallel Aware": false,
+  "Node Type": "Hash Join",
+  "Join Type": "Semi",
+  "Plan Width": 10,
+  "Startup Cost": 6.49,
+  "Hash Cond": "(soccer_country.country_id \u003d match_details.team_id)",
+  "Plan Rows": 125,
+  "Inner Unique": false
+}
+
+------------------------------
+
+Indicies Configuration #3:
+Index hash on column win_lose in table match_details
+
+------------------------------
+
+1. The Total Cost of the Plan = 12.34
+2. The Estimated Size of the Result Set = 125
+3. The Plan of the Query:
+{
+  "Total Cost": 12.34,
+  "Plans": [
+    {
+      "Parent Relationship": "Outer",
+      "Total Cost": 3.95,
+      "Relation Name": "soccer_country",
+      "Parallel Aware": false,
+      "Alias": "soccer_country",
+      "Node Type": "Seq Scan",
+      "Plan Width": 15,
+      "Startup Cost": 0.0,
+      "Plan Rows": 195
+    },
+    {
+      "Parent Relationship": "Inner",
+      "Total Cost": 4.92,
+      "Plans": [
+        {
+          "Parent Relationship": "Outer",
+          "Total Cost": 4.92,
+          "Relation Name": "match_details",
+          "Parallel Aware": false,
+          "Filter": "((play_stage \u003d \u0027a\u0027::bpchar) AND (win_lose \u003d \u0027w\u0027::bpchar))",
+          "Alias": "match_details",
+          "Node Type": "Seq Scan",
+          "Plan Width": 5,
+          "Startup Cost": 0.0,
+          "Plan Rows": 125
+        }
+      ],
+      "Parallel Aware": false,
+      "Node Type": "Hash",
+      "Plan Width": 5,
+      "Startup Cost": 4.92,
+      "Plan Rows": 125
+    }
+  ],
+  "Parallel Aware": false,
+  "Node Type": "Hash Join",
+  "Join Type": "Semi",
+  "Plan Width": 10,
+  "Startup Cost": 6.49,
+  "Hash Cond": "(soccer_country.country_id \u003d match_details.team_id)",
+  "Plan Rows": 125,
+  "Inner Unique": false
+}
+
+------------------------------
+
+Indicies Configuration #4:
+Index btree on column play_stage in table match_details
+
+------------------------------
+
+1. The Total Cost of the Plan = 12.34
+2. The Estimated Size of the Result Set = 125
+3. The Plan of the Query:
+{
+  "Total Cost": 12.34,
+  "Plans": [
+    {
+      "Parent Relationship": "Outer",
+      "Total Cost": 3.95,
+      "Relation Name": "soccer_country",
+      "Parallel Aware": false,
+      "Alias": "soccer_country",
+      "Node Type": "Seq Scan",
+      "Plan Width": 15,
+      "Startup Cost": 0.0,
+      "Plan Rows": 195
+    },
+    {
+      "Parent Relationship": "Inner",
+      "Total Cost": 4.92,
+      "Plans": [
+        {
+          "Parent Relationship": "Outer",
+          "Total Cost": 4.92,
+          "Relation Name": "match_details",
+          "Parallel Aware": false,
+          "Filter": "((play_stage \u003d \u0027a\u0027::bpchar) AND (win_lose \u003d \u0027w\u0027::bpchar))",
+          "Alias": "match_details",
+          "Node Type": "Seq Scan",
+          "Plan Width": 5,
+          "Startup Cost": 0.0,
+          "Plan Rows": 125
+        }
+      ],
+      "Parallel Aware": false,
+      "Node Type": "Hash",
+      "Plan Width": 5,
+      "Startup Cost": 4.92,
+      "Plan Rows": 125
+    }
+  ],
+  "Parallel Aware": false,
+  "Node Type": "Hash Join",
+  "Join Type": "Semi",
+  "Plan Width": 10,
+  "Startup Cost": 6.49,
+  "Hash Cond": "(soccer_country.country_id \u003d match_details.team_id)",
+  "Plan Rows": 125,
+  "Inner Unique": false
+}
+
+------------------------------
+
+Indicies Configuration #5:
+Index btree on column play_stage in table match_details
+Index btree on column win_lose in table match_details
+
+------------------------------
+
+1. The Total Cost of the Plan = 12.34
+2. The Estimated Size of the Result Set = 125
+3. The Plan of the Query:
+{
+  "Total Cost": 12.34,
+  "Plans": [
+    {
+      "Parent Relationship": "Outer",
+      "Total Cost": 3.95,
+      "Relation Name": "soccer_country",
+      "Parallel Aware": false,
+      "Alias": "soccer_country",
+      "Node Type": "Seq Scan",
+      "Plan Width": 15,
+      "Startup Cost": 0.0,
+      "Plan Rows": 195
+    },
+    {
+      "Parent Relationship": "Inner",
+      "Total Cost": 4.92,
+      "Plans": [
+        {
+          "Parent Relationship": "Outer",
+          "Total Cost": 4.92,
+          "Relation Name": "match_details",
+          "Parallel Aware": false,
+          "Filter": "((play_stage \u003d \u0027a\u0027::bpchar) AND (win_lose \u003d \u0027w\u0027::bpchar))",
+          "Alias": "match_details",
+          "Node Type": "Seq Scan",
+          "Plan Width": 5,
+          "Startup Cost": 0.0,
+          "Plan Rows": 125
+        }
+      ],
+      "Parallel Aware": false,
+      "Node Type": "Hash",
+      "Plan Width": 5,
+      "Startup Cost": 4.92,
+      "Plan Rows": 125
+    }
+  ],
+  "Parallel Aware": false,
+  "Node Type": "Hash Join",
+  "Join Type": "Semi",
+  "Plan Width": 10,
+  "Startup Cost": 6.49,
+  "Hash Cond": "(soccer_country.country_id \u003d match_details.team_id)",
+  "Plan Rows": 125,
+  "Inner Unique": false
+}
+
+------------------------------
+
+Indicies Configuration #6:
+Index btree on column play_stage in table match_details
+Index hash on column win_lose in table match_details
+
+------------------------------
+
+1. The Total Cost of the Plan = 12.34
+2. The Estimated Size of the Result Set = 125
+3. The Plan of the Query:
+{
+  "Total Cost": 12.34,
+  "Plans": [
+    {
+      "Parent Relationship": "Outer",
+      "Total Cost": 3.95,
+      "Relation Name": "soccer_country",
+      "Parallel Aware": false,
+      "Alias": "soccer_country",
+      "Node Type": "Seq Scan",
+      "Plan Width": 15,
+      "Startup Cost": 0.0,
+      "Plan Rows": 195
+    },
+    {
+      "Parent Relationship": "Inner",
+      "Total Cost": 4.92,
+      "Plans": [
+        {
+          "Parent Relationship": "Outer",
+          "Total Cost": 4.92,
+          "Relation Name": "match_details",
+          "Parallel Aware": false,
+          "Filter": "((play_stage \u003d \u0027a\u0027::bpchar) AND (win_lose \u003d \u0027w\u0027::bpchar))",
+          "Alias": "match_details",
+          "Node Type": "Seq Scan",
+          "Plan Width": 5,
+          "Startup Cost": 0.0,
+          "Plan Rows": 125
+        }
+      ],
+      "Parallel Aware": false,
+      "Node Type": "Hash",
+      "Plan Width": 5,
+      "Startup Cost": 4.92,
+      "Plan Rows": 125
+    }
+  ],
+  "Parallel Aware": false,
+  "Node Type": "Hash Join",
+  "Join Type": "Semi",
+  "Plan Width": 10,
+  "Startup Cost": 6.49,
+  "Hash Cond": "(soccer_country.country_id \u003d match_details.team_id)",
+  "Plan Rows": 125,
+  "Inner Unique": false
+}
+
+------------------------------
+
+Indicies Configuration #7:
+Index hash on column play_stage in table match_details
+
+------------------------------
+
+1. The Total Cost of the Plan = 12.34
+2. The Estimated Size of the Result Set = 125
+3. The Plan of the Query:
+{
+  "Total Cost": 12.34,
+  "Plans": [
+    {
+      "Parent Relationship": "Outer",
+      "Total Cost": 3.95,
+      "Relation Name": "soccer_country",
+      "Parallel Aware": false,
+      "Alias": "soccer_country",
+      "Node Type": "Seq Scan",
+      "Plan Width": 15,
+      "Startup Cost": 0.0,
+      "Plan Rows": 195
+    },
+    {
+      "Parent Relationship": "Inner",
+      "Total Cost": 4.92,
+      "Plans": [
+        {
+          "Parent Relationship": "Outer",
+          "Total Cost": 4.92,
+          "Relation Name": "match_details",
+          "Parallel Aware": false,
+          "Filter": "((play_stage \u003d \u0027a\u0027::bpchar) AND (win_lose \u003d \u0027w\u0027::bpchar))",
+          "Alias": "match_details",
+          "Node Type": "Seq Scan",
+          "Plan Width": 5,
+          "Startup Cost": 0.0,
+          "Plan Rows": 125
+        }
+      ],
+      "Parallel Aware": false,
+      "Node Type": "Hash",
+      "Plan Width": 5,
+      "Startup Cost": 4.92,
+      "Plan Rows": 125
+    }
+  ],
+  "Parallel Aware": false,
+  "Node Type": "Hash Join",
+  "Join Type": "Semi",
+  "Plan Width": 10,
+  "Startup Cost": 6.49,
+  "Hash Cond": "(soccer_country.country_id \u003d match_details.team_id)",
+  "Plan Rows": 125,
+  "Inner Unique": false
+}
+
+------------------------------
+
+Indicies Configuration #8:
+Index hash on column play_stage in table match_details
+Index btree on column win_lose in table match_details
+
+------------------------------
+
+1. The Total Cost of the Plan = 12.34
+2. The Estimated Size of the Result Set = 125
+3. The Plan of the Query:
+{
+  "Total Cost": 12.34,
+  "Plans": [
+    {
+      "Parent Relationship": "Outer",
+      "Total Cost": 3.95,
+      "Relation Name": "soccer_country",
+      "Parallel Aware": false,
+      "Alias": "soccer_country",
+      "Node Type": "Seq Scan",
+      "Plan Width": 15,
+      "Startup Cost": 0.0,
+      "Plan Rows": 195
+    },
+    {
+      "Parent Relationship": "Inner",
+      "Total Cost": 4.92,
+      "Plans": [
+        {
+          "Parent Relationship": "Outer",
+          "Total Cost": 4.92,
+          "Relation Name": "match_details",
+          "Parallel Aware": false,
+          "Filter": "((play_stage \u003d \u0027a\u0027::bpchar) AND (win_lose \u003d \u0027w\u0027::bpchar))",
+          "Alias": "match_details",
+          "Node Type": "Seq Scan",
+          "Plan Width": 5,
+          "Startup Cost": 0.0,
+          "Plan Rows": 125
+        }
+      ],
+      "Parallel Aware": false,
+      "Node Type": "Hash",
+      "Plan Width": 5,
+      "Startup Cost": 4.92,
+      "Plan Rows": 125
+    }
+  ],
+  "Parallel Aware": false,
+  "Node Type": "Hash Join",
+  "Join Type": "Semi",
+  "Plan Width": 10,
+  "Startup Cost": 6.49,
+  "Hash Cond": "(soccer_country.country_id \u003d match_details.team_id)",
+  "Plan Rows": 125,
+  "Inner Unique": false
+}
+
+------------------------------
+
+Indicies Configuration #9:
+Index hash on column play_stage in table match_details
+Index hash on column win_lose in table match_details
+
+------------------------------
+
+1. The Total Cost of the Plan = 12.34
+2. The Estimated Size of the Result Set = 125
+3. The Plan of the Query:
+{
+  "Total Cost": 12.34,
+  "Plans": [
+    {
+      "Parent Relationship": "Outer",
+      "Total Cost": 3.95,
+      "Relation Name": "soccer_country",
+      "Parallel Aware": false,
+      "Alias": "soccer_country",
+      "Node Type": "Seq Scan",
+      "Plan Width": 15,
+      "Startup Cost": 0.0,
+      "Plan Rows": 195
+    },
+    {
+      "Parent Relationship": "Inner",
+      "Total Cost": 4.92,
+      "Plans": [
+        {
+          "Parent Relationship": "Outer",
+          "Total Cost": 4.92,
+          "Relation Name": "match_details",
+          "Parallel Aware": false,
+          "Filter": "((play_stage \u003d \u0027a\u0027::bpchar) AND (win_lose \u003d \u0027w\u0027::bpchar))",
+          "Alias": "match_details",
+          "Node Type": "Seq Scan",
+          "Plan Width": 5,
+          "Startup Cost": 0.0,
+          "Plan Rows": 125
+        }
+      ],
+      "Parallel Aware": false,
+      "Node Type": "Hash",
+      "Plan Width": 5,
+      "Startup Cost": 4.92,
+      "Plan Rows": 125
+    }
+  ],
+  "Parallel Aware": false,
+  "Node Type": "Hash Join",
+  "Join Type": "Semi",
+  "Plan Width": 10,
+  "Startup Cost": 6.49,
+  "Hash Cond": "(soccer_country.country_id \u003d match_details.team_id)",
+  "Plan Rows": 125,
+  "Inner Unique": false
+}
+
+------------------------------
+
+Indicies Configuration #10:
+Index btree on column country_id in table soccer_country
+
+------------------------------
+
+1. The Total Cost of the Plan = 12.34
+2. The Estimated Size of the Result Set = 125
+3. The Plan of the Query:
+{
+  "Total Cost": 12.34,
+  "Plans": [
+    {
+      "Parent Relationship": "Outer",
+      "Total Cost": 3.95,
+      "Relation Name": "soccer_country",
+      "Parallel Aware": false,
+      "Alias": "soccer_country",
+      "Node Type": "Seq Scan",
+      "Plan Width": 15,
+      "Startup Cost": 0.0,
+      "Plan Rows": 195
+    },
+    {
+      "Parent Relationship": "Inner",
+      "Total Cost": 4.92,
+      "Plans": [
+        {
+          "Parent Relationship": "Outer",
+          "Total Cost": 4.92,
+          "Relation Name": "match_details",
+          "Parallel Aware": false,
+          "Filter": "((play_stage \u003d \u0027a\u0027::bpchar) AND (win_lose \u003d \u0027w\u0027::bpchar))",
+          "Alias": "match_details",
+          "Node Type": "Seq Scan",
+          "Plan Width": 5,
+          "Startup Cost": 0.0,
+          "Plan Rows": 125
+        }
+      ],
+      "Parallel Aware": false,
+      "Node Type": "Hash",
+      "Plan Width": 5,
+      "Startup Cost": 4.92,
+      "Plan Rows": 125
+    }
+  ],
+  "Parallel Aware": false,
+  "Node Type": "Hash Join",
+  "Join Type": "Semi",
+  "Plan Width": 10,
+  "Startup Cost": 6.49,
+  "Hash Cond": "(soccer_country.country_id \u003d match_details.team_id)",
+  "Plan Rows": 125,
+  "Inner Unique": false
+}
+
+------------------------------
+
+Indicies Configuration #11:
+Index btree on column country_id in table soccer_country
+Index btree on column win_lose in table match_details
+
+------------------------------
+
+1. The Total Cost of the Plan = 12.34
+2. The Estimated Size of the Result Set = 125
+3. The Plan of the Query:
+{
+  "Total Cost": 12.34,
+  "Plans": [
+    {
+      "Parent Relationship": "Outer",
+      "Total Cost": 3.95,
+      "Relation Name": "soccer_country",
+      "Parallel Aware": false,
+      "Alias": "soccer_country",
+      "Node Type": "Seq Scan",
+      "Plan Width": 15,
+      "Startup Cost": 0.0,
+      "Plan Rows": 195
+    },
+    {
+      "Parent Relationship": "Inner",
+      "Total Cost": 4.92,
+      "Plans": [
+        {
+          "Parent Relationship": "Outer",
+          "Total Cost": 4.92,
+          "Relation Name": "match_details",
+          "Parallel Aware": false,
+          "Filter": "((play_stage \u003d \u0027a\u0027::bpchar) AND (win_lose \u003d \u0027w\u0027::bpchar))",
+          "Alias": "match_details",
+          "Node Type": "Seq Scan",
+          "Plan Width": 5,
+          "Startup Cost": 0.0,
+          "Plan Rows": 125
+        }
+      ],
+      "Parallel Aware": false,
+      "Node Type": "Hash",
+      "Plan Width": 5,
+      "Startup Cost": 4.92,
+      "Plan Rows": 125
+    }
+  ],
+  "Parallel Aware": false,
+  "Node Type": "Hash Join",
+  "Join Type": "Semi",
+  "Plan Width": 10,
+  "Startup Cost": 6.49,
+  "Hash Cond": "(soccer_country.country_id \u003d match_details.team_id)",
+  "Plan Rows": 125,
+  "Inner Unique": false
+}
+
+------------------------------
+
+Indicies Configuration #12:
+Index btree on column country_id in table soccer_country
+Index hash on column win_lose in table match_details
+
+------------------------------
+
+1. The Total Cost of the Plan = 12.34
+2. The Estimated Size of the Result Set = 125
+3. The Plan of the Query:
+{
+  "Total Cost": 12.34,
+  "Plans": [
+    {
+      "Parent Relationship": "Outer",
+      "Total Cost": 3.95,
+      "Relation Name": "soccer_country",
+      "Parallel Aware": false,
+      "Alias": "soccer_country",
+      "Node Type": "Seq Scan",
+      "Plan Width": 15,
+      "Startup Cost": 0.0,
+      "Plan Rows": 195
+    },
+    {
+      "Parent Relationship": "Inner",
+      "Total Cost": 4.92,
+      "Plans": [
+        {
+          "Parent Relationship": "Outer",
+          "Total Cost": 4.92,
+          "Relation Name": "match_details",
+          "Parallel Aware": false,
+          "Filter": "((play_stage \u003d \u0027a\u0027::bpchar) AND (win_lose \u003d \u0027w\u0027::bpchar))",
+          "Alias": "match_details",
+          "Node Type": "Seq Scan",
+          "Plan Width": 5,
+          "Startup Cost": 0.0,
+          "Plan Rows": 125
+        }
+      ],
+      "Parallel Aware": false,
+      "Node Type": "Hash",
+      "Plan Width": 5,
+      "Startup Cost": 4.92,
+      "Plan Rows": 125
+    }
+  ],
+  "Parallel Aware": false,
+  "Node Type": "Hash Join",
+  "Join Type": "Semi",
+  "Plan Width": 10,
+  "Startup Cost": 6.49,
+  "Hash Cond": "(soccer_country.country_id \u003d match_details.team_id)",
+  "Plan Rows": 125,
+  "Inner Unique": false
+}
+
+------------------------------
+
+Indicies Configuration #13:
+Index btree on column country_id in table soccer_country
+Index btree on column play_stage in table match_details
+
+------------------------------
+
+1. The Total Cost of the Plan = 12.34
+2. The Estimated Size of the Result Set = 125
+3. The Plan of the Query:
+{
+  "Total Cost": 12.34,
+  "Plans": [
+    {
+      "Parent Relationship": "Outer",
+      "Total Cost": 3.95,
+      "Relation Name": "soccer_country",
+      "Parallel Aware": false,
+      "Alias": "soccer_country",
+      "Node Type": "Seq Scan",
+      "Plan Width": 15,
+      "Startup Cost": 0.0,
+      "Plan Rows": 195
+    },
+    {
+      "Parent Relationship": "Inner",
+      "Total Cost": 4.92,
+      "Plans": [
+        {
+          "Parent Relationship": "Outer",
+          "Total Cost": 4.92,
+          "Relation Name": "match_details",
+          "Parallel Aware": false,
+          "Filter": "((play_stage \u003d \u0027a\u0027::bpchar) AND (win_lose \u003d \u0027w\u0027::bpchar))",
+          "Alias": "match_details",
+          "Node Type": "Seq Scan",
+          "Plan Width": 5,
+          "Startup Cost": 0.0,
+          "Plan Rows": 125
+        }
+      ],
+      "Parallel Aware": false,
+      "Node Type": "Hash",
+      "Plan Width": 5,
+      "Startup Cost": 4.92,
+      "Plan Rows": 125
+    }
+  ],
+  "Parallel Aware": false,
+  "Node Type": "Hash Join",
+  "Join Type": "Semi",
+  "Plan Width": 10,
+  "Startup Cost": 6.49,
+  "Hash Cond": "(soccer_country.country_id \u003d match_details.team_id)",
+  "Plan Rows": 125,
+  "Inner Unique": false
+}
+
+------------------------------
+
+Indicies Configuration #14:
+Index btree on column country_id in table soccer_country
+Index btree on column play_stage in table match_details
+Index btree on column win_lose in table match_details
+
+------------------------------
+
+1. The Total Cost of the Plan = 12.34
+2. The Estimated Size of the Result Set = 125
+3. The Plan of the Query:
+{
+  "Total Cost": 12.34,
+  "Plans": [
+    {
+      "Parent Relationship": "Outer",
+      "Total Cost": 3.95,
+      "Relation Name": "soccer_country",
+      "Parallel Aware": false,
+      "Alias": "soccer_country",
+      "Node Type": "Seq Scan",
+      "Plan Width": 15,
+      "Startup Cost": 0.0,
+      "Plan Rows": 195
+    },
+    {
+      "Parent Relationship": "Inner",
+      "Total Cost": 4.92,
+      "Plans": [
+        {
+          "Parent Relationship": "Outer",
+          "Total Cost": 4.92,
+          "Relation Name": "match_details",
+          "Parallel Aware": false,
+          "Filter": "((play_stage \u003d \u0027a\u0027::bpchar) AND (win_lose \u003d \u0027w\u0027::bpchar))",
+          "Alias": "match_details",
+          "Node Type": "Seq Scan",
+          "Plan Width": 5,
+          "Startup Cost": 0.0,
+          "Plan Rows": 125
+        }
+      ],
+      "Parallel Aware": false,
+      "Node Type": "Hash",
+      "Plan Width": 5,
+      "Startup Cost": 4.92,
+      "Plan Rows": 125
+    }
+  ],
+  "Parallel Aware": false,
+  "Node Type": "Hash Join",
+  "Join Type": "Semi",
+  "Plan Width": 10,
+  "Startup Cost": 6.49,
+  "Hash Cond": "(soccer_country.country_id \u003d match_details.team_id)",
+  "Plan Rows": 125,
+  "Inner Unique": false
+}
+
+------------------------------
+
+Indicies Configuration #15:
+Index btree on column country_id in table soccer_country
+Index btree on column play_stage in table match_details
+Index hash on column win_lose in table match_details
+
+------------------------------
+
+1. The Total Cost of the Plan = 12.34
+2. The Estimated Size of the Result Set = 125
+3. The Plan of the Query:
+{
+  "Total Cost": 12.34,
+  "Plans": [
+    {
+      "Parent Relationship": "Outer",
+      "Total Cost": 3.95,
+      "Relation Name": "soccer_country",
+      "Parallel Aware": false,
+      "Alias": "soccer_country",
+      "Node Type": "Seq Scan",
+      "Plan Width": 15,
+      "Startup Cost": 0.0,
+      "Plan Rows": 195
+    },
+    {
+      "Parent Relationship": "Inner",
+      "Total Cost": 4.92,
+      "Plans": [
+        {
+          "Parent Relationship": "Outer",
+          "Total Cost": 4.92,
+          "Relation Name": "match_details",
+          "Parallel Aware": false,
+          "Filter": "((play_stage \u003d \u0027a\u0027::bpchar) AND (win_lose \u003d \u0027w\u0027::bpchar))",
+          "Alias": "match_details",
+          "Node Type": "Seq Scan",
+          "Plan Width": 5,
+          "Startup Cost": 0.0,
+          "Plan Rows": 125
+        }
+      ],
+      "Parallel Aware": false,
+      "Node Type": "Hash",
+      "Plan Width": 5,
+      "Startup Cost": 4.92,
+      "Plan Rows": 125
+    }
+  ],
+  "Parallel Aware": false,
+  "Node Type": "Hash Join",
+  "Join Type": "Semi",
+  "Plan Width": 10,
+  "Startup Cost": 6.49,
+  "Hash Cond": "(soccer_country.country_id \u003d match_details.team_id)",
+  "Plan Rows": 125,
+  "Inner Unique": false
+}
+
+------------------------------
+
+Indicies Configuration #16:
+Index btree on column country_id in table soccer_country
+Index hash on column play_stage in table match_details
+
+------------------------------
+
+1. The Total Cost of the Plan = 12.34
+2. The Estimated Size of the Result Set = 125
+3. The Plan of the Query:
+{
+  "Total Cost": 12.34,
+  "Plans": [
+    {
+      "Parent Relationship": "Outer",
+      "Total Cost": 3.95,
+      "Relation Name": "soccer_country",
+      "Parallel Aware": false,
+      "Alias": "soccer_country",
+      "Node Type": "Seq Scan",
+      "Plan Width": 15,
+      "Startup Cost": 0.0,
+      "Plan Rows": 195
+    },
+    {
+      "Parent Relationship": "Inner",
+      "Total Cost": 4.92,
+      "Plans": [
+        {
+          "Parent Relationship": "Outer",
+          "Total Cost": 4.92,
+          "Relation Name": "match_details",
+          "Parallel Aware": false,
+          "Filter": "((play_stage \u003d \u0027a\u0027::bpchar) AND (win_lose \u003d \u0027w\u0027::bpchar))",
+          "Alias": "match_details",
+          "Node Type": "Seq Scan",
+          "Plan Width": 5,
+          "Startup Cost": 0.0,
+          "Plan Rows": 125
+        }
+      ],
+      "Parallel Aware": false,
+      "Node Type": "Hash",
+      "Plan Width": 5,
+      "Startup Cost": 4.92,
+      "Plan Rows": 125
+    }
+  ],
+  "Parallel Aware": false,
+  "Node Type": "Hash Join",
+  "Join Type": "Semi",
+  "Plan Width": 10,
+  "Startup Cost": 6.49,
+  "Hash Cond": "(soccer_country.country_id \u003d match_details.team_id)",
+  "Plan Rows": 125,
+  "Inner Unique": false
+}
+
+------------------------------
+
+Indicies Configuration #17:
+Index btree on column country_id in table soccer_country
+Index hash on column play_stage in table match_details
+Index btree on column win_lose in table match_details
+
+------------------------------
+
+1. The Total Cost of the Plan = 12.34
+2. The Estimated Size of the Result Set = 125
+3. The Plan of the Query:
+{
+  "Total Cost": 12.34,
+  "Plans": [
+    {
+      "Parent Relationship": "Outer",
+      "Total Cost": 3.95,
+      "Relation Name": "soccer_country",
+      "Parallel Aware": false,
+      "Alias": "soccer_country",
+      "Node Type": "Seq Scan",
+      "Plan Width": 15,
+      "Startup Cost": 0.0,
+      "Plan Rows": 195
+    },
+    {
+      "Parent Relationship": "Inner",
+      "Total Cost": 4.92,
+      "Plans": [
+        {
+          "Parent Relationship": "Outer",
+          "Total Cost": 4.92,
+          "Relation Name": "match_details",
+          "Parallel Aware": false,
+          "Filter": "((play_stage \u003d \u0027a\u0027::bpchar) AND (win_lose \u003d \u0027w\u0027::bpchar))",
+          "Alias": "match_details",
+          "Node Type": "Seq Scan",
+          "Plan Width": 5,
+          "Startup Cost": 0.0,
+          "Plan Rows": 125
+        }
+      ],
+      "Parallel Aware": false,
+      "Node Type": "Hash",
+      "Plan Width": 5,
+      "Startup Cost": 4.92,
+      "Plan Rows": 125
+    }
+  ],
+  "Parallel Aware": false,
+  "Node Type": "Hash Join",
+  "Join Type": "Semi",
+  "Plan Width": 10,
+  "Startup Cost": 6.49,
+  "Hash Cond": "(soccer_country.country_id \u003d match_details.team_id)",
+  "Plan Rows": 125,
+  "Inner Unique": false
+}
+
+------------------------------
+
+Indicies Configuration #18:
+Index btree on column country_id in table soccer_country
+Index hash on column play_stage in table match_details
+Index hash on column win_lose in table match_details
+
+------------------------------
+
+1. The Total Cost of the Plan = 12.34
+2. The Estimated Size of the Result Set = 125
+3. The Plan of the Query:
+{
+  "Total Cost": 12.34,
+  "Plans": [
+    {
+      "Parent Relationship": "Outer",
+      "Total Cost": 3.95,
+      "Relation Name": "soccer_country",
+      "Parallel Aware": false,
+      "Alias": "soccer_country",
+      "Node Type": "Seq Scan",
+      "Plan Width": 15,
+      "Startup Cost": 0.0,
+      "Plan Rows": 195
+    },
+    {
+      "Parent Relationship": "Inner",
+      "Total Cost": 4.92,
+      "Plans": [
+        {
+          "Parent Relationship": "Outer",
+          "Total Cost": 4.92,
+          "Relation Name": "match_details",
+          "Parallel Aware": false,
+          "Filter": "((play_stage \u003d \u0027a\u0027::bpchar) AND (win_lose \u003d \u0027w\u0027::bpchar))",
+          "Alias": "match_details",
+          "Node Type": "Seq Scan",
+          "Plan Width": 5,
+          "Startup Cost": 0.0,
+          "Plan Rows": 125
+        }
+      ],
+      "Parallel Aware": false,
+      "Node Type": "Hash",
+      "Plan Width": 5,
+      "Startup Cost": 4.92,
+      "Plan Rows": 125
+    }
+  ],
+  "Parallel Aware": false,
+  "Node Type": "Hash Join",
+  "Join Type": "Semi",
+  "Plan Width": 10,
+  "Startup Cost": 6.49,
+  "Hash Cond": "(soccer_country.country_id \u003d match_details.team_id)",
+  "Plan Rows": 125,
+  "Inner Unique": false
+}
+
+------------------------------
+
+Indicies Configuration #19:
+Index hash on column country_id in table soccer_country
+
+------------------------------
+
+1. The Total Cost of the Plan = 12.34
+2. The Estimated Size of the Result Set = 125
+3. The Plan of the Query:
+{
+  "Total Cost": 12.34,
+  "Plans": [
+    {
+      "Parent Relationship": "Outer",
+      "Total Cost": 3.95,
+      "Relation Name": "soccer_country",
+      "Parallel Aware": false,
+      "Alias": "soccer_country",
+      "Node Type": "Seq Scan",
+      "Plan Width": 15,
+      "Startup Cost": 0.0,
+      "Plan Rows": 195
+    },
+    {
+      "Parent Relationship": "Inner",
+      "Total Cost": 4.92,
+      "Plans": [
+        {
+          "Parent Relationship": "Outer",
+          "Total Cost": 4.92,
+          "Relation Name": "match_details",
+          "Parallel Aware": false,
+          "Filter": "((play_stage \u003d \u0027a\u0027::bpchar) AND (win_lose \u003d \u0027w\u0027::bpchar))",
+          "Alias": "match_details",
+          "Node Type": "Seq Scan",
+          "Plan Width": 5,
+          "Startup Cost": 0.0,
+          "Plan Rows": 125
+        }
+      ],
+      "Parallel Aware": false,
+      "Node Type": "Hash",
+      "Plan Width": 5,
+      "Startup Cost": 4.92,
+      "Plan Rows": 125
+    }
+  ],
+  "Parallel Aware": false,
+  "Node Type": "Hash Join",
+  "Join Type": "Semi",
+  "Plan Width": 10,
+  "Startup Cost": 6.49,
+  "Hash Cond": "(soccer_country.country_id \u003d match_details.team_id)",
+  "Plan Rows": 125,
+  "Inner Unique": false
+}
+
+------------------------------
+
+Indicies Configuration #20:
+Index hash on column country_id in table soccer_country
+Index btree on column win_lose in table match_details
+
+------------------------------
+
+1. The Total Cost of the Plan = 12.34
+2. The Estimated Size of the Result Set = 125
+3. The Plan of the Query:
+{
+  "Total Cost": 12.34,
+  "Plans": [
+    {
+      "Parent Relationship": "Outer",
+      "Total Cost": 3.95,
+      "Relation Name": "soccer_country",
+      "Parallel Aware": false,
+      "Alias": "soccer_country",
+      "Node Type": "Seq Scan",
+      "Plan Width": 15,
+      "Startup Cost": 0.0,
+      "Plan Rows": 195
+    },
+    {
+      "Parent Relationship": "Inner",
+      "Total Cost": 4.92,
+      "Plans": [
+        {
+          "Parent Relationship": "Outer",
+          "Total Cost": 4.92,
+          "Relation Name": "match_details",
+          "Parallel Aware": false,
+          "Filter": "((play_stage \u003d \u0027a\u0027::bpchar) AND (win_lose \u003d \u0027w\u0027::bpchar))",
+          "Alias": "match_details",
+          "Node Type": "Seq Scan",
+          "Plan Width": 5,
+          "Startup Cost": 0.0,
+          "Plan Rows": 125
+        }
+      ],
+      "Parallel Aware": false,
+      "Node Type": "Hash",
+      "Plan Width": 5,
+      "Startup Cost": 4.92,
+      "Plan Rows": 125
+    }
+  ],
+  "Parallel Aware": false,
+  "Node Type": "Hash Join",
+  "Join Type": "Semi",
+  "Plan Width": 10,
+  "Startup Cost": 6.49,
+  "Hash Cond": "(soccer_country.country_id \u003d match_details.team_id)",
+  "Plan Rows": 125,
+  "Inner Unique": false
+}
+
+------------------------------
+
+Indicies Configuration #21:
+Index hash on column country_id in table soccer_country
+Index hash on column win_lose in table match_details
+
+------------------------------
+
+1. The Total Cost of the Plan = 12.34
+2. The Estimated Size of the Result Set = 125
+3. The Plan of the Query:
+{
+  "Total Cost": 12.34,
+  "Plans": [
+    {
+      "Parent Relationship": "Outer",
+      "Total Cost": 3.95,
+      "Relation Name": "soccer_country",
+      "Parallel Aware": false,
+      "Alias": "soccer_country",
+      "Node Type": "Seq Scan",
+      "Plan Width": 15,
+      "Startup Cost": 0.0,
+      "Plan Rows": 195
+    },
+    {
+      "Parent Relationship": "Inner",
+      "Total Cost": 4.92,
+      "Plans": [
+        {
+          "Parent Relationship": "Outer",
+          "Total Cost": 4.92,
+          "Relation Name": "match_details",
+          "Parallel Aware": false,
+          "Filter": "((play_stage \u003d \u0027a\u0027::bpchar) AND (win_lose \u003d \u0027w\u0027::bpchar))",
+          "Alias": "match_details",
+          "Node Type": "Seq Scan",
+          "Plan Width": 5,
+          "Startup Cost": 0.0,
+          "Plan Rows": 125
+        }
+      ],
+      "Parallel Aware": false,
+      "Node Type": "Hash",
+      "Plan Width": 5,
+      "Startup Cost": 4.92,
+      "Plan Rows": 125
+    }
+  ],
+  "Parallel Aware": false,
+  "Node Type": "Hash Join",
+  "Join Type": "Semi",
+  "Plan Width": 10,
+  "Startup Cost": 6.49,
+  "Hash Cond": "(soccer_country.country_id \u003d match_details.team_id)",
+  "Plan Rows": 125,
+  "Inner Unique": false
+}
+
+------------------------------
+
+Indicies Configuration #22:
+Index hash on column country_id in table soccer_country
+Index btree on column play_stage in table match_details
+
+------------------------------
+
+1. The Total Cost of the Plan = 12.34
+2. The Estimated Size of the Result Set = 125
+3. The Plan of the Query:
+{
+  "Total Cost": 12.34,
+  "Plans": [
+    {
+      "Parent Relationship": "Outer",
+      "Total Cost": 3.95,
+      "Relation Name": "soccer_country",
+      "Parallel Aware": false,
+      "Alias": "soccer_country",
+      "Node Type": "Seq Scan",
+      "Plan Width": 15,
+      "Startup Cost": 0.0,
+      "Plan Rows": 195
+    },
+    {
+      "Parent Relationship": "Inner",
+      "Total Cost": 4.92,
+      "Plans": [
+        {
+          "Parent Relationship": "Outer",
+          "Total Cost": 4.92,
+          "Relation Name": "match_details",
+          "Parallel Aware": false,
+          "Filter": "((play_stage \u003d \u0027a\u0027::bpchar) AND (win_lose \u003d \u0027w\u0027::bpchar))",
+          "Alias": "match_details",
+          "Node Type": "Seq Scan",
+          "Plan Width": 5,
+          "Startup Cost": 0.0,
+          "Plan Rows": 125
+        }
+      ],
+      "Parallel Aware": false,
+      "Node Type": "Hash",
+      "Plan Width": 5,
+      "Startup Cost": 4.92,
+      "Plan Rows": 125
+    }
+  ],
+  "Parallel Aware": false,
+  "Node Type": "Hash Join",
+  "Join Type": "Semi",
+  "Plan Width": 10,
+  "Startup Cost": 6.49,
+  "Hash Cond": "(soccer_country.country_id \u003d match_details.team_id)",
+  "Plan Rows": 125,
+  "Inner Unique": false
+}
+
+------------------------------
+
+Indicies Configuration #23:
+Index hash on column country_id in table soccer_country
+Index btree on column play_stage in table match_details
+Index btree on column win_lose in table match_details
+
+------------------------------
+
+1. The Total Cost of the Plan = 12.34
+2. The Estimated Size of the Result Set = 125
+3. The Plan of the Query:
+{
+  "Total Cost": 12.34,
+  "Plans": [
+    {
+      "Parent Relationship": "Outer",
+      "Total Cost": 3.95,
+      "Relation Name": "soccer_country",
+      "Parallel Aware": false,
+      "Alias": "soccer_country",
+      "Node Type": "Seq Scan",
+      "Plan Width": 15,
+      "Startup Cost": 0.0,
+      "Plan Rows": 195
+    },
+    {
+      "Parent Relationship": "Inner",
+      "Total Cost": 4.92,
+      "Plans": [
+        {
+          "Parent Relationship": "Outer",
+          "Total Cost": 4.92,
+          "Relation Name": "match_details",
+          "Parallel Aware": false,
+          "Filter": "((play_stage \u003d \u0027a\u0027::bpchar) AND (win_lose \u003d \u0027w\u0027::bpchar))",
+          "Alias": "match_details",
+          "Node Type": "Seq Scan",
+          "Plan Width": 5,
+          "Startup Cost": 0.0,
+          "Plan Rows": 125
+        }
+      ],
+      "Parallel Aware": false,
+      "Node Type": "Hash",
+      "Plan Width": 5,
+      "Startup Cost": 4.92,
+      "Plan Rows": 125
+    }
+  ],
+  "Parallel Aware": false,
+  "Node Type": "Hash Join",
+  "Join Type": "Semi",
+  "Plan Width": 10,
+  "Startup Cost": 6.49,
+  "Hash Cond": "(soccer_country.country_id \u003d match_details.team_id)",
+  "Plan Rows": 125,
+  "Inner Unique": false
+}
+
+------------------------------
+
+Indicies Configuration #24:
+Index hash on column country_id in table soccer_country
+Index btree on column play_stage in table match_details
+Index hash on column win_lose in table match_details
+
+------------------------------
+
+1. The Total Cost of the Plan = 12.34
+2. The Estimated Size of the Result Set = 125
+3. The Plan of the Query:
+{
+  "Total Cost": 12.34,
+  "Plans": [
+    {
+      "Parent Relationship": "Outer",
+      "Total Cost": 3.95,
+      "Relation Name": "soccer_country",
+      "Parallel Aware": false,
+      "Alias": "soccer_country",
+      "Node Type": "Seq Scan",
+      "Plan Width": 15,
+      "Startup Cost": 0.0,
+      "Plan Rows": 195
+    },
+    {
+      "Parent Relationship": "Inner",
+      "Total Cost": 4.92,
+      "Plans": [
+        {
+          "Parent Relationship": "Outer",
+          "Total Cost": 4.92,
+          "Relation Name": "match_details",
+          "Parallel Aware": false,
+          "Filter": "((play_stage \u003d \u0027a\u0027::bpchar) AND (win_lose \u003d \u0027w\u0027::bpchar))",
+          "Alias": "match_details",
+          "Node Type": "Seq Scan",
+          "Plan Width": 5,
+          "Startup Cost": 0.0,
+          "Plan Rows": 125
+        }
+      ],
+      "Parallel Aware": false,
+      "Node Type": "Hash",
+      "Plan Width": 5,
+      "Startup Cost": 4.92,
+      "Plan Rows": 125
+    }
+  ],
+  "Parallel Aware": false,
+  "Node Type": "Hash Join",
+  "Join Type": "Semi",
+  "Plan Width": 10,
+  "Startup Cost": 6.49,
+  "Hash Cond": "(soccer_country.country_id \u003d match_details.team_id)",
+  "Plan Rows": 125,
+  "Inner Unique": false
+}
+
+------------------------------
+
+Indicies Configuration #25:
+Index hash on column country_id in table soccer_country
+Index hash on column play_stage in table match_details
+
+------------------------------
+
+1. The Total Cost of the Plan = 12.34
+2. The Estimated Size of the Result Set = 125
+3. The Plan of the Query:
+{
+  "Total Cost": 12.34,
+  "Plans": [
+    {
+      "Parent Relationship": "Outer",
+      "Total Cost": 3.95,
+      "Relation Name": "soccer_country",
+      "Parallel Aware": false,
+      "Alias": "soccer_country",
+      "Node Type": "Seq Scan",
+      "Plan Width": 15,
+      "Startup Cost": 0.0,
+      "Plan Rows": 195
+    },
+    {
+      "Parent Relationship": "Inner",
+      "Total Cost": 4.92,
+      "Plans": [
+        {
+          "Parent Relationship": "Outer",
+          "Total Cost": 4.92,
+          "Relation Name": "match_details",
+          "Parallel Aware": false,
+          "Filter": "((play_stage \u003d \u0027a\u0027::bpchar) AND (win_lose \u003d \u0027w\u0027::bpchar))",
+          "Alias": "match_details",
+          "Node Type": "Seq Scan",
+          "Plan Width": 5,
+          "Startup Cost": 0.0,
+          "Plan Rows": 125
+        }
+      ],
+      "Parallel Aware": false,
+      "Node Type": "Hash",
+      "Plan Width": 5,
+      "Startup Cost": 4.92,
+      "Plan Rows": 125
+    }
+  ],
+  "Parallel Aware": false,
+  "Node Type": "Hash Join",
+  "Join Type": "Semi",
+  "Plan Width": 10,
+  "Startup Cost": 6.49,
+  "Hash Cond": "(soccer_country.country_id \u003d match_details.team_id)",
+  "Plan Rows": 125,
+  "Inner Unique": false
+}
+
+------------------------------
+
+Indicies Configuration #26:
+Index hash on column country_id in table soccer_country
+Index hash on column play_stage in table match_details
+Index btree on column win_lose in table match_details
+
+------------------------------
+
+1. The Total Cost of the Plan = 12.34
+2. The Estimated Size of the Result Set = 125
+3. The Plan of the Query:
+{
+  "Total Cost": 12.34,
+  "Plans": [
+    {
+      "Parent Relationship": "Outer",
+      "Total Cost": 3.95,
+      "Relation Name": "soccer_country",
+      "Parallel Aware": false,
+      "Alias": "soccer_country",
+      "Node Type": "Seq Scan",
+      "Plan Width": 15,
+      "Startup Cost": 0.0,
+      "Plan Rows": 195
+    },
+    {
+      "Parent Relationship": "Inner",
+      "Total Cost": 4.92,
+      "Plans": [
+        {
+          "Parent Relationship": "Outer",
+          "Total Cost": 4.92,
+          "Relation Name": "match_details",
+          "Parallel Aware": false,
+          "Filter": "((play_stage \u003d \u0027a\u0027::bpchar) AND (win_lose \u003d \u0027w\u0027::bpchar))",
+          "Alias": "match_details",
+          "Node Type": "Seq Scan",
+          "Plan Width": 5,
+          "Startup Cost": 0.0,
+          "Plan Rows": 125
+        }
+      ],
+      "Parallel Aware": false,
+      "Node Type": "Hash",
+      "Plan Width": 5,
+      "Startup Cost": 4.92,
+      "Plan Rows": 125
+    }
+  ],
+  "Parallel Aware": false,
+  "Node Type": "Hash Join",
+  "Join Type": "Semi",
+  "Plan Width": 10,
+  "Startup Cost": 6.49,
+  "Hash Cond": "(soccer_country.country_id \u003d match_details.team_id)",
+  "Plan Rows": 125,
+  "Inner Unique": false
+}
+
+------------------------------
+
+Indicies Configuration #27:
+Index hash on column country_id in table soccer_country
+Index hash on column play_stage in table match_details
+Index hash on column win_lose in table match_details
+
+------------------------------
+
+1. The Total Cost of the Plan = 12.34
+2. The Estimated Size of the Result Set = 125
+3. The Plan of the Query:
+{
+  "Total Cost": 12.34,
+  "Plans": [
+    {
+      "Parent Relationship": "Outer",
+      "Total Cost": 3.95,
+      "Relation Name": "soccer_country",
+      "Parallel Aware": false,
+      "Alias": "soccer_country",
+      "Node Type": "Seq Scan",
+      "Plan Width": 15,
+      "Startup Cost": 0.0,
+      "Plan Rows": 195
+    },
+    {
+      "Parent Relationship": "Inner",
+      "Total Cost": 4.92,
+      "Plans": [
+        {
+          "Parent Relationship": "Outer",
+          "Total Cost": 4.92,
+          "Relation Name": "match_details",
+          "Parallel Aware": false,
+          "Filter": "((play_stage \u003d \u0027a\u0027::bpchar) AND (win_lose \u003d \u0027w\u0027::bpchar))",
+          "Alias": "match_details",
+          "Node Type": "Seq Scan",
+          "Plan Width": 5,
+          "Startup Cost": 0.0,
+          "Plan Rows": 125
+        }
+      ],
+      "Parallel Aware": false,
+      "Node Type": "Hash",
+      "Plan Width": 5,
+      "Startup Cost": 4.92,
+      "Plan Rows": 125
+    }
+  ],
+  "Parallel Aware": false,
+  "Node Type": "Hash Join",
+  "Join Type": "Semi",
+  "Plan Width": 10,
+  "Startup Cost": 6.49,
+  "Hash Cond": "(soccer_country.country_id \u003d match_details.team_id)",
+  "Plan Rows": 125,
+  "Inner Unique": false
+}
+The Optimal Configuration is Number 1 with Total Cost = 12.340000
+
+##############################
+
+End of Query Analyzation
+
+##############################
+

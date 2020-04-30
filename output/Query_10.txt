@@ -1,0 +1,2871 @@
+Query #10:
+Connected to Database: "schema4"
+
+Running Query:
+ select *
+from actor 
+where act_id in(
+select act_id 
+from movie_cast 
+where mov_id in(
+select mov_id 
+from movie 
+where mov_title ='movie1'));
+
+Query Result Set:
+
+------------------------------
+
+act_id                        act_fname                     act_lname                     act_gender                    
+5001                          actor5001                     actor5001                     F                             
+7001                          actor7001                     actor7001                     F                             
+2001                          actor2001                     actor2001                     M                             
+1                             actor1                        actor1                        M                             
+9001                          actor9001                     actor9001                     F                             
+1001                          actor1001                     actor1001                     M                             
+6001                          actor6001                     actor6001                     F                             
+4001                          actor4001                     actor4001                     M                             
+3001                          actor3001                     actor3001                     M                             
+8001                          actor8001                     actor8001                     F                             
+
+
+End of Results
+The Size of the Result Set = 10
+
+##############################
+
+
+------------------------------
+
+Indicies Configuration #1:
+No Indicies Used
+
+------------------------------
+
+1. The Total Cost of the Plan = 246.6
+2. The Estimated Size of the Result Set = 10
+3. The Plan of the Query:
+{
+  "Total Cost": 246.6,
+  "Plans": [
+    {
+      "Parent Relationship": "Outer",
+      "Total Cost": 242.99,
+      "Plans": [
+        {
+          "Parent Relationship": "Outer",
+          "Total Cost": 242.86,
+          "Plans": [
+            {
+              "Parent Relationship": "Outer",
+              "Total Cost": 183.99,
+              "Relation Name": "movie_cast",
+              "Parallel Aware": false,
+              "Alias": "movie_cast",
+              "Node Type": "Seq Scan",
+              "Plan Width": 8,
+              "Startup Cost": 0.0,
+              "Plan Rows": 9999
+            },
+            {
+              "Parent Relationship": "Inner",
+              "Total Cost": 32.5,
+              "Plans": [
+                {
+                  "Parent Relationship": "Outer",
+                  "Total Cost": 32.5,
+                  "Relation Name": "movie",
+                  "Parallel Aware": false,
+                  "Filter": "(mov_title \u003d \u0027movie1\u0027::bpchar)",
+                  "Alias": "movie",
+                  "Node Type": "Seq Scan",
+                  "Plan Width": 4,
+                  "Startup Cost": 0.0,
+                  "Plan Rows": 1
+                }
+              ],
+              "Parallel Aware": false,
+              "Node Type": "Hash",
+              "Plan Width": 4,
+              "Startup Cost": 32.5,
+              "Plan Rows": 1
+            }
+          ],
+          "Parallel Aware": false,
+          "Node Type": "Hash Join",
+          "Join Type": "Inner",
+          "Plan Width": 4,
+          "Startup Cost": 32.51,
+          "Hash Cond": "(movie_cast.mov_id \u003d movie.mov_id)",
+          "Plan Rows": 10,
+          "Inner Unique": true
+        }
+      ],
+      "Parallel Aware": false,
+      "Node Type": "Aggregate",
+      "Plan Width": 4,
+      "Strategy": "Hashed",
+      "Startup Cost": 242.89,
+      "Group Key": [
+        "movie_cast.act_id"
+      ],
+      "Plan Rows": 10,
+      "Partial Mode": "Simple"
+    },
+    {
+      "Parent Relationship": "Inner",
+      "Total Cost": 0.36,
+      "Scan Direction": "Forward",
+      "Relation Name": "actor",
+      "Parallel Aware": false,
+      "Alias": "actor",
+      "Node Type": "Index Scan",
+      "Index Name": "actor_pkey",
+      "Plan Width": 48,
+      "Startup Cost": 0.29,
+      "Index Cond": "(act_id \u003d movie_cast.act_id)",
+      "Plan Rows": 1
+    }
+  ],
+  "Parallel Aware": false,
+  "Node Type": "Nested Loop",
+  "Join Type": "Inner",
+  "Plan Width": 48,
+  "Startup Cost": 243.17,
+  "Plan Rows": 10,
+  "Inner Unique": true
+}
+
+------------------------------
+
+Indicies Configuration #2:
+Index btree on column mov_title in table movie
+
+------------------------------
+
+1. The Total Cost of the Plan = 222.4
+2. The Estimated Size of the Result Set = 10
+3. The Plan of the Query:
+{
+  "Total Cost": 222.4,
+  "Plans": [
+    {
+      "Parent Relationship": "Outer",
+      "Total Cost": 218.78,
+      "Plans": [
+        {
+          "Parent Relationship": "Outer",
+          "Total Cost": 218.65,
+          "Plans": [
+            {
+              "Parent Relationship": "Outer",
+              "Total Cost": 183.99,
+              "Relation Name": "movie_cast",
+              "Parallel Aware": false,
+              "Alias": "movie_cast",
+              "Node Type": "Seq Scan",
+              "Plan Width": 8,
+              "Startup Cost": 0.0,
+              "Plan Rows": 9999
+            },
+            {
+              "Parent Relationship": "Inner",
+              "Total Cost": 8.29,
+              "Plans": [
+                {
+                  "Parent Relationship": "Outer",
+                  "Total Cost": 8.29,
+                  "Scan Direction": "Forward",
+                  "Relation Name": "movie",
+                  "Parallel Aware": false,
+                  "Alias": "movie",
+                  "Node Type": "Index Scan",
+                  "Index Name": "idx_movie_mov_title",
+                  "Plan Width": 4,
+                  "Startup Cost": 0.28,
+                  "Index Cond": "(mov_title \u003d \u0027movie1\u0027::bpchar)",
+                  "Plan Rows": 1
+                }
+              ],
+              "Parallel Aware": false,
+              "Node Type": "Hash",
+              "Plan Width": 4,
+              "Startup Cost": 8.29,
+              "Plan Rows": 1
+            }
+          ],
+          "Parallel Aware": false,
+          "Node Type": "Hash Join",
+          "Join Type": "Inner",
+          "Plan Width": 4,
+          "Startup Cost": 8.3,
+          "Hash Cond": "(movie_cast.mov_id \u003d movie.mov_id)",
+          "Plan Rows": 10,
+          "Inner Unique": true
+        }
+      ],
+      "Parallel Aware": false,
+      "Node Type": "Aggregate",
+      "Plan Width": 4,
+      "Strategy": "Hashed",
+      "Startup Cost": 218.68,
+      "Group Key": [
+        "movie_cast.act_id"
+      ],
+      "Plan Rows": 10,
+      "Partial Mode": "Simple"
+    },
+    {
+      "Parent Relationship": "Inner",
+      "Total Cost": 0.36,
+      "Scan Direction": "Forward",
+      "Relation Name": "actor",
+      "Parallel Aware": false,
+      "Alias": "actor",
+      "Node Type": "Index Scan",
+      "Index Name": "actor_pkey",
+      "Plan Width": 48,
+      "Startup Cost": 0.29,
+      "Index Cond": "(act_id \u003d movie_cast.act_id)",
+      "Plan Rows": 1
+    }
+  ],
+  "Parallel Aware": false,
+  "Node Type": "Nested Loop",
+  "Join Type": "Inner",
+  "Plan Width": 48,
+  "Startup Cost": 218.96,
+  "Plan Rows": 10,
+  "Inner Unique": true
+}
+
+------------------------------
+
+Indicies Configuration #3:
+Index hash on column mov_title in table movie
+
+------------------------------
+
+1. The Total Cost of the Plan = 222.12
+2. The Estimated Size of the Result Set = 10
+3. The Plan of the Query:
+{
+  "Total Cost": 222.12,
+  "Plans": [
+    {
+      "Parent Relationship": "Outer",
+      "Total Cost": 218.5,
+      "Plans": [
+        {
+          "Parent Relationship": "Outer",
+          "Total Cost": 218.38,
+          "Plans": [
+            {
+              "Parent Relationship": "Outer",
+              "Total Cost": 183.99,
+              "Relation Name": "movie_cast",
+              "Parallel Aware": false,
+              "Alias": "movie_cast",
+              "Node Type": "Seq Scan",
+              "Plan Width": 8,
+              "Startup Cost": 0.0,
+              "Plan Rows": 9999
+            },
+            {
+              "Parent Relationship": "Inner",
+              "Total Cost": 8.02,
+              "Plans": [
+                {
+                  "Parent Relationship": "Outer",
+                  "Total Cost": 8.02,
+                  "Scan Direction": "NoMovement",
+                  "Relation Name": "movie",
+                  "Parallel Aware": false,
+                  "Alias": "movie",
+                  "Node Type": "Index Scan",
+                  "Index Name": "idx_movie_mov_title",
+                  "Plan Width": 4,
+                  "Startup Cost": 0.0,
+                  "Index Cond": "(mov_title \u003d \u0027movie1\u0027::bpchar)",
+                  "Plan Rows": 1
+                }
+              ],
+              "Parallel Aware": false,
+              "Node Type": "Hash",
+              "Plan Width": 4,
+              "Startup Cost": 8.02,
+              "Plan Rows": 1
+            }
+          ],
+          "Parallel Aware": false,
+          "Node Type": "Hash Join",
+          "Join Type": "Inner",
+          "Plan Width": 4,
+          "Startup Cost": 8.03,
+          "Hash Cond": "(movie_cast.mov_id \u003d movie.mov_id)",
+          "Plan Rows": 10,
+          "Inner Unique": true
+        }
+      ],
+      "Parallel Aware": false,
+      "Node Type": "Aggregate",
+      "Plan Width": 4,
+      "Strategy": "Hashed",
+      "Startup Cost": 218.4,
+      "Group Key": [
+        "movie_cast.act_id"
+      ],
+      "Plan Rows": 10,
+      "Partial Mode": "Simple"
+    },
+    {
+      "Parent Relationship": "Inner",
+      "Total Cost": 0.36,
+      "Scan Direction": "Forward",
+      "Relation Name": "actor",
+      "Parallel Aware": false,
+      "Alias": "actor",
+      "Node Type": "Index Scan",
+      "Index Name": "actor_pkey",
+      "Plan Width": 48,
+      "Startup Cost": 0.29,
+      "Index Cond": "(act_id \u003d movie_cast.act_id)",
+      "Plan Rows": 1
+    }
+  ],
+  "Parallel Aware": false,
+  "Node Type": "Nested Loop",
+  "Join Type": "Inner",
+  "Plan Width": 48,
+  "Startup Cost": 218.69,
+  "Plan Rows": 10,
+  "Inner Unique": true
+}
+
+------------------------------
+
+Indicies Configuration #4:
+Index btree on column mov_id in table movie_cast
+
+------------------------------
+
+1. The Total Cost of the Plan = 70.48
+2. The Estimated Size of the Result Set = 10
+3. The Plan of the Query:
+{
+  "Total Cost": 70.48,
+  "Plans": [
+    {
+      "Parent Relationship": "Outer",
+      "Total Cost": 66.86,
+      "Plans": [
+        {
+          "Parent Relationship": "Outer",
+          "Total Cost": 66.74,
+          "Plans": [
+            {
+              "Parent Relationship": "Outer",
+              "Total Cost": 32.5,
+              "Relation Name": "movie",
+              "Parallel Aware": false,
+              "Filter": "(mov_title \u003d \u0027movie1\u0027::bpchar)",
+              "Alias": "movie",
+              "Node Type": "Seq Scan",
+              "Plan Width": 4,
+              "Startup Cost": 0.0,
+              "Plan Rows": 1
+            },
+            {
+              "Parent Relationship": "Inner",
+              "Total Cost": 34.14,
+              "Recheck Cond": "(mov_id \u003d movie.mov_id)",
+              "Plans": [
+                {
+                  "Parent Relationship": "Outer",
+                  "Total Cost": 4.36,
+                  "Parallel Aware": false,
+                  "Node Type": "Bitmap Index Scan",
+                  "Index Name": "idx_movie_cast_mov_id",
+                  "Plan Width": 0,
+                  "Startup Cost": 0.0,
+                  "Index Cond": "(mov_id \u003d movie.mov_id)",
+                  "Plan Rows": 10
+                }
+              ],
+              "Relation Name": "movie_cast",
+              "Parallel Aware": false,
+              "Alias": "movie_cast",
+              "Node Type": "Bitmap Heap Scan",
+              "Plan Width": 8,
+              "Startup Cost": 4.36,
+              "Plan Rows": 10
+            }
+          ],
+          "Parallel Aware": false,
+          "Node Type": "Nested Loop",
+          "Join Type": "Inner",
+          "Plan Width": 4,
+          "Startup Cost": 4.36,
+          "Plan Rows": 10,
+          "Inner Unique": false
+        }
+      ],
+      "Parallel Aware": false,
+      "Node Type": "Aggregate",
+      "Plan Width": 4,
+      "Strategy": "Hashed",
+      "Startup Cost": 66.76,
+      "Group Key": [
+        "movie_cast.act_id"
+      ],
+      "Plan Rows": 10,
+      "Partial Mode": "Simple"
+    },
+    {
+      "Parent Relationship": "Inner",
+      "Total Cost": 0.36,
+      "Scan Direction": "Forward",
+      "Relation Name": "actor",
+      "Parallel Aware": false,
+      "Alias": "actor",
+      "Node Type": "Index Scan",
+      "Index Name": "actor_pkey",
+      "Plan Width": 48,
+      "Startup Cost": 0.29,
+      "Index Cond": "(act_id \u003d movie_cast.act_id)",
+      "Plan Rows": 1
+    }
+  ],
+  "Parallel Aware": false,
+  "Node Type": "Nested Loop",
+  "Join Type": "Inner",
+  "Plan Width": 48,
+  "Startup Cost": 67.05,
+  "Plan Rows": 10,
+  "Inner Unique": true
+}
+
+------------------------------
+
+Indicies Configuration #5:
+Index btree on column mov_id in table movie_cast
+Index btree on column mov_title in table movie
+
+------------------------------
+
+1. The Total Cost of the Plan = 46.27
+2. The Estimated Size of the Result Set = 10
+3. The Plan of the Query:
+{
+  "Total Cost": 46.27,
+  "Plans": [
+    {
+      "Parent Relationship": "Outer",
+      "Total Cost": 42.65,
+      "Plans": [
+        {
+          "Parent Relationship": "Outer",
+          "Total Cost": 42.53,
+          "Plans": [
+            {
+              "Parent Relationship": "Outer",
+              "Total Cost": 8.29,
+              "Scan Direction": "Forward",
+              "Relation Name": "movie",
+              "Parallel Aware": false,
+              "Alias": "movie",
+              "Node Type": "Index Scan",
+              "Index Name": "idx_movie_mov_title",
+              "Plan Width": 4,
+              "Startup Cost": 0.28,
+              "Index Cond": "(mov_title \u003d \u0027movie1\u0027::bpchar)",
+              "Plan Rows": 1
+            },
+            {
+              "Parent Relationship": "Inner",
+              "Total Cost": 34.14,
+              "Recheck Cond": "(mov_id \u003d movie.mov_id)",
+              "Plans": [
+                {
+                  "Parent Relationship": "Outer",
+                  "Total Cost": 4.36,
+                  "Parallel Aware": false,
+                  "Node Type": "Bitmap Index Scan",
+                  "Index Name": "idx_movie_cast_mov_id",
+                  "Plan Width": 0,
+                  "Startup Cost": 0.0,
+                  "Index Cond": "(mov_id \u003d movie.mov_id)",
+                  "Plan Rows": 10
+                }
+              ],
+              "Relation Name": "movie_cast",
+              "Parallel Aware": false,
+              "Alias": "movie_cast",
+              "Node Type": "Bitmap Heap Scan",
+              "Plan Width": 8,
+              "Startup Cost": 4.36,
+              "Plan Rows": 10
+            }
+          ],
+          "Parallel Aware": false,
+          "Node Type": "Nested Loop",
+          "Join Type": "Inner",
+          "Plan Width": 4,
+          "Startup Cost": 4.64,
+          "Plan Rows": 10,
+          "Inner Unique": false
+        }
+      ],
+      "Parallel Aware": false,
+      "Node Type": "Aggregate",
+      "Plan Width": 4,
+      "Strategy": "Hashed",
+      "Startup Cost": 42.55,
+      "Group Key": [
+        "movie_cast.act_id"
+      ],
+      "Plan Rows": 10,
+      "Partial Mode": "Simple"
+    },
+    {
+      "Parent Relationship": "Inner",
+      "Total Cost": 0.36,
+      "Scan Direction": "Forward",
+      "Relation Name": "actor",
+      "Parallel Aware": false,
+      "Alias": "actor",
+      "Node Type": "Index Scan",
+      "Index Name": "actor_pkey",
+      "Plan Width": 48,
+      "Startup Cost": 0.29,
+      "Index Cond": "(act_id \u003d movie_cast.act_id)",
+      "Plan Rows": 1
+    }
+  ],
+  "Parallel Aware": false,
+  "Node Type": "Nested Loop",
+  "Join Type": "Inner",
+  "Plan Width": 48,
+  "Startup Cost": 42.84,
+  "Plan Rows": 10,
+  "Inner Unique": true
+}
+
+------------------------------
+
+Indicies Configuration #6:
+Index btree on column mov_id in table movie_cast
+Index hash on column mov_title in table movie
+
+------------------------------
+
+1. The Total Cost of the Plan = 46.0
+2. The Estimated Size of the Result Set = 10
+3. The Plan of the Query:
+{
+  "Total Cost": 46.0,
+  "Plans": [
+    {
+      "Parent Relationship": "Outer",
+      "Total Cost": 42.38,
+      "Plans": [
+        {
+          "Parent Relationship": "Outer",
+          "Total Cost": 42.25,
+          "Plans": [
+            {
+              "Parent Relationship": "Outer",
+              "Total Cost": 8.02,
+              "Scan Direction": "NoMovement",
+              "Relation Name": "movie",
+              "Parallel Aware": false,
+              "Alias": "movie",
+              "Node Type": "Index Scan",
+              "Index Name": "idx_movie_mov_title",
+              "Plan Width": 4,
+              "Startup Cost": 0.0,
+              "Index Cond": "(mov_title \u003d \u0027movie1\u0027::bpchar)",
+              "Plan Rows": 1
+            },
+            {
+              "Parent Relationship": "Inner",
+              "Total Cost": 34.14,
+              "Recheck Cond": "(mov_id \u003d movie.mov_id)",
+              "Plans": [
+                {
+                  "Parent Relationship": "Outer",
+                  "Total Cost": 4.36,
+                  "Parallel Aware": false,
+                  "Node Type": "Bitmap Index Scan",
+                  "Index Name": "idx_movie_cast_mov_id",
+                  "Plan Width": 0,
+                  "Startup Cost": 0.0,
+                  "Index Cond": "(mov_id \u003d movie.mov_id)",
+                  "Plan Rows": 10
+                }
+              ],
+              "Relation Name": "movie_cast",
+              "Parallel Aware": false,
+              "Alias": "movie_cast",
+              "Node Type": "Bitmap Heap Scan",
+              "Plan Width": 8,
+              "Startup Cost": 4.36,
+              "Plan Rows": 10
+            }
+          ],
+          "Parallel Aware": false,
+          "Node Type": "Nested Loop",
+          "Join Type": "Inner",
+          "Plan Width": 4,
+          "Startup Cost": 4.36,
+          "Plan Rows": 10,
+          "Inner Unique": false
+        }
+      ],
+      "Parallel Aware": false,
+      "Node Type": "Aggregate",
+      "Plan Width": 4,
+      "Strategy": "Hashed",
+      "Startup Cost": 42.28,
+      "Group Key": [
+        "movie_cast.act_id"
+      ],
+      "Plan Rows": 10,
+      "Partial Mode": "Simple"
+    },
+    {
+      "Parent Relationship": "Inner",
+      "Total Cost": 0.36,
+      "Scan Direction": "Forward",
+      "Relation Name": "actor",
+      "Parallel Aware": false,
+      "Alias": "actor",
+      "Node Type": "Index Scan",
+      "Index Name": "actor_pkey",
+      "Plan Width": 48,
+      "Startup Cost": 0.29,
+      "Index Cond": "(act_id \u003d movie_cast.act_id)",
+      "Plan Rows": 1
+    }
+  ],
+  "Parallel Aware": false,
+  "Node Type": "Nested Loop",
+  "Join Type": "Inner",
+  "Plan Width": 48,
+  "Startup Cost": 42.56,
+  "Plan Rows": 10,
+  "Inner Unique": true
+}
+
+------------------------------
+
+Indicies Configuration #7:
+Index hash on column mov_id in table movie_cast
+
+------------------------------
+
+1. The Total Cost of the Plan = 70.19
+2. The Estimated Size of the Result Set = 10
+3. The Plan of the Query:
+{
+  "Total Cost": 70.19,
+  "Plans": [
+    {
+      "Parent Relationship": "Outer",
+      "Total Cost": 66.58,
+      "Plans": [
+        {
+          "Parent Relationship": "Outer",
+          "Total Cost": 66.45,
+          "Plans": [
+            {
+              "Parent Relationship": "Outer",
+              "Total Cost": 32.5,
+              "Relation Name": "movie",
+              "Parallel Aware": false,
+              "Filter": "(mov_title \u003d \u0027movie1\u0027::bpchar)",
+              "Alias": "movie",
+              "Node Type": "Seq Scan",
+              "Plan Width": 4,
+              "Startup Cost": 0.0,
+              "Plan Rows": 1
+            },
+            {
+              "Parent Relationship": "Inner",
+              "Total Cost": 33.85,
+              "Recheck Cond": "(mov_id \u003d movie.mov_id)",
+              "Plans": [
+                {
+                  "Parent Relationship": "Outer",
+                  "Total Cost": 4.08,
+                  "Parallel Aware": false,
+                  "Node Type": "Bitmap Index Scan",
+                  "Index Name": "idx_movie_cast_mov_id",
+                  "Plan Width": 0,
+                  "Startup Cost": 0.0,
+                  "Index Cond": "(mov_id \u003d movie.mov_id)",
+                  "Plan Rows": 10
+                }
+              ],
+              "Relation Name": "movie_cast",
+              "Parallel Aware": false,
+              "Alias": "movie_cast",
+              "Node Type": "Bitmap Heap Scan",
+              "Plan Width": 8,
+              "Startup Cost": 4.08,
+              "Plan Rows": 10
+            }
+          ],
+          "Parallel Aware": false,
+          "Node Type": "Nested Loop",
+          "Join Type": "Inner",
+          "Plan Width": 4,
+          "Startup Cost": 4.08,
+          "Plan Rows": 10,
+          "Inner Unique": false
+        }
+      ],
+      "Parallel Aware": false,
+      "Node Type": "Aggregate",
+      "Plan Width": 4,
+      "Strategy": "Hashed",
+      "Startup Cost": 66.48,
+      "Group Key": [
+        "movie_cast.act_id"
+      ],
+      "Plan Rows": 10,
+      "Partial Mode": "Simple"
+    },
+    {
+      "Parent Relationship": "Inner",
+      "Total Cost": 0.36,
+      "Scan Direction": "Forward",
+      "Relation Name": "actor",
+      "Parallel Aware": false,
+      "Alias": "actor",
+      "Node Type": "Index Scan",
+      "Index Name": "actor_pkey",
+      "Plan Width": 48,
+      "Startup Cost": 0.29,
+      "Index Cond": "(act_id \u003d movie_cast.act_id)",
+      "Plan Rows": 1
+    }
+  ],
+  "Parallel Aware": false,
+  "Node Type": "Nested Loop",
+  "Join Type": "Inner",
+  "Plan Width": 48,
+  "Startup Cost": 66.76,
+  "Plan Rows": 10,
+  "Inner Unique": true
+}
+
+------------------------------
+
+Indicies Configuration #8:
+Index hash on column mov_id in table movie_cast
+Index btree on column mov_title in table movie
+
+------------------------------
+
+1. The Total Cost of the Plan = 45.99
+2. The Estimated Size of the Result Set = 10
+3. The Plan of the Query:
+{
+  "Total Cost": 45.99,
+  "Plans": [
+    {
+      "Parent Relationship": "Outer",
+      "Total Cost": 42.37,
+      "Plans": [
+        {
+          "Parent Relationship": "Outer",
+          "Total Cost": 42.24,
+          "Plans": [
+            {
+              "Parent Relationship": "Outer",
+              "Total Cost": 8.29,
+              "Scan Direction": "Forward",
+              "Relation Name": "movie",
+              "Parallel Aware": false,
+              "Alias": "movie",
+              "Node Type": "Index Scan",
+              "Index Name": "idx_movie_mov_title",
+              "Plan Width": 4,
+              "Startup Cost": 0.28,
+              "Index Cond": "(mov_title \u003d \u0027movie1\u0027::bpchar)",
+              "Plan Rows": 1
+            },
+            {
+              "Parent Relationship": "Inner",
+              "Total Cost": 33.85,
+              "Recheck Cond": "(mov_id \u003d movie.mov_id)",
+              "Plans": [
+                {
+                  "Parent Relationship": "Outer",
+                  "Total Cost": 4.08,
+                  "Parallel Aware": false,
+                  "Node Type": "Bitmap Index Scan",
+                  "Index Name": "idx_movie_cast_mov_id",
+                  "Plan Width": 0,
+                  "Startup Cost": 0.0,
+                  "Index Cond": "(mov_id \u003d movie.mov_id)",
+                  "Plan Rows": 10
+                }
+              ],
+              "Relation Name": "movie_cast",
+              "Parallel Aware": false,
+              "Alias": "movie_cast",
+              "Node Type": "Bitmap Heap Scan",
+              "Plan Width": 8,
+              "Startup Cost": 4.08,
+              "Plan Rows": 10
+            }
+          ],
+          "Parallel Aware": false,
+          "Node Type": "Nested Loop",
+          "Join Type": "Inner",
+          "Plan Width": 4,
+          "Startup Cost": 4.35,
+          "Plan Rows": 10,
+          "Inner Unique": false
+        }
+      ],
+      "Parallel Aware": false,
+      "Node Type": "Aggregate",
+      "Plan Width": 4,
+      "Strategy": "Hashed",
+      "Startup Cost": 42.27,
+      "Group Key": [
+        "movie_cast.act_id"
+      ],
+      "Plan Rows": 10,
+      "Partial Mode": "Simple"
+    },
+    {
+      "Parent Relationship": "Inner",
+      "Total Cost": 0.36,
+      "Scan Direction": "Forward",
+      "Relation Name": "actor",
+      "Parallel Aware": false,
+      "Alias": "actor",
+      "Node Type": "Index Scan",
+      "Index Name": "actor_pkey",
+      "Plan Width": 48,
+      "Startup Cost": 0.29,
+      "Index Cond": "(act_id \u003d movie_cast.act_id)",
+      "Plan Rows": 1
+    }
+  ],
+  "Parallel Aware": false,
+  "Node Type": "Nested Loop",
+  "Join Type": "Inner",
+  "Plan Width": 48,
+  "Startup Cost": 42.55,
+  "Plan Rows": 10,
+  "Inner Unique": true
+}
+
+------------------------------
+
+Indicies Configuration #9:
+Index hash on column mov_id in table movie_cast
+Index hash on column mov_title in table movie
+
+------------------------------
+
+1. The Total Cost of the Plan = 45.71
+2. The Estimated Size of the Result Set = 10
+3. The Plan of the Query:
+{
+  "Total Cost": 45.71,
+  "Plans": [
+    {
+      "Parent Relationship": "Outer",
+      "Total Cost": 42.09,
+      "Plans": [
+        {
+          "Parent Relationship": "Outer",
+          "Total Cost": 41.97,
+          "Plans": [
+            {
+              "Parent Relationship": "Outer",
+              "Total Cost": 8.02,
+              "Scan Direction": "NoMovement",
+              "Relation Name": "movie",
+              "Parallel Aware": false,
+              "Alias": "movie",
+              "Node Type": "Index Scan",
+              "Index Name": "idx_movie_mov_title",
+              "Plan Width": 4,
+              "Startup Cost": 0.0,
+              "Index Cond": "(mov_title \u003d \u0027movie1\u0027::bpchar)",
+              "Plan Rows": 1
+            },
+            {
+              "Parent Relationship": "Inner",
+              "Total Cost": 33.85,
+              "Recheck Cond": "(mov_id \u003d movie.mov_id)",
+              "Plans": [
+                {
+                  "Parent Relationship": "Outer",
+                  "Total Cost": 4.08,
+                  "Parallel Aware": false,
+                  "Node Type": "Bitmap Index Scan",
+                  "Index Name": "idx_movie_cast_mov_id",
+                  "Plan Width": 0,
+                  "Startup Cost": 0.0,
+                  "Index Cond": "(mov_id \u003d movie.mov_id)",
+                  "Plan Rows": 10
+                }
+              ],
+              "Relation Name": "movie_cast",
+              "Parallel Aware": false,
+              "Alias": "movie_cast",
+              "Node Type": "Bitmap Heap Scan",
+              "Plan Width": 8,
+              "Startup Cost": 4.08,
+              "Plan Rows": 10
+            }
+          ],
+          "Parallel Aware": false,
+          "Node Type": "Nested Loop",
+          "Join Type": "Inner",
+          "Plan Width": 4,
+          "Startup Cost": 4.08,
+          "Plan Rows": 10,
+          "Inner Unique": false
+        }
+      ],
+      "Parallel Aware": false,
+      "Node Type": "Aggregate",
+      "Plan Width": 4,
+      "Strategy": "Hashed",
+      "Startup Cost": 41.99,
+      "Group Key": [
+        "movie_cast.act_id"
+      ],
+      "Plan Rows": 10,
+      "Partial Mode": "Simple"
+    },
+    {
+      "Parent Relationship": "Inner",
+      "Total Cost": 0.36,
+      "Scan Direction": "Forward",
+      "Relation Name": "actor",
+      "Parallel Aware": false,
+      "Alias": "actor",
+      "Node Type": "Index Scan",
+      "Index Name": "actor_pkey",
+      "Plan Width": 48,
+      "Startup Cost": 0.29,
+      "Index Cond": "(act_id \u003d movie_cast.act_id)",
+      "Plan Rows": 1
+    }
+  ],
+  "Parallel Aware": false,
+  "Node Type": "Nested Loop",
+  "Join Type": "Inner",
+  "Plan Width": 48,
+  "Startup Cost": 42.28,
+  "Plan Rows": 10,
+  "Inner Unique": true
+}
+
+------------------------------
+
+Indicies Configuration #10:
+Index btree on column act_id in table actor
+
+------------------------------
+
+1. The Total Cost of the Plan = 246.6
+2. The Estimated Size of the Result Set = 10
+3. The Plan of the Query:
+{
+  "Total Cost": 246.6,
+  "Plans": [
+    {
+      "Parent Relationship": "Outer",
+      "Total Cost": 242.99,
+      "Plans": [
+        {
+          "Parent Relationship": "Outer",
+          "Total Cost": 242.86,
+          "Plans": [
+            {
+              "Parent Relationship": "Outer",
+              "Total Cost": 183.99,
+              "Relation Name": "movie_cast",
+              "Parallel Aware": false,
+              "Alias": "movie_cast",
+              "Node Type": "Seq Scan",
+              "Plan Width": 8,
+              "Startup Cost": 0.0,
+              "Plan Rows": 9999
+            },
+            {
+              "Parent Relationship": "Inner",
+              "Total Cost": 32.5,
+              "Plans": [
+                {
+                  "Parent Relationship": "Outer",
+                  "Total Cost": 32.5,
+                  "Relation Name": "movie",
+                  "Parallel Aware": false,
+                  "Filter": "(mov_title \u003d \u0027movie1\u0027::bpchar)",
+                  "Alias": "movie",
+                  "Node Type": "Seq Scan",
+                  "Plan Width": 4,
+                  "Startup Cost": 0.0,
+                  "Plan Rows": 1
+                }
+              ],
+              "Parallel Aware": false,
+              "Node Type": "Hash",
+              "Plan Width": 4,
+              "Startup Cost": 32.5,
+              "Plan Rows": 1
+            }
+          ],
+          "Parallel Aware": false,
+          "Node Type": "Hash Join",
+          "Join Type": "Inner",
+          "Plan Width": 4,
+          "Startup Cost": 32.51,
+          "Hash Cond": "(movie_cast.mov_id \u003d movie.mov_id)",
+          "Plan Rows": 10,
+          "Inner Unique": true
+        }
+      ],
+      "Parallel Aware": false,
+      "Node Type": "Aggregate",
+      "Plan Width": 4,
+      "Strategy": "Hashed",
+      "Startup Cost": 242.89,
+      "Group Key": [
+        "movie_cast.act_id"
+      ],
+      "Plan Rows": 10,
+      "Partial Mode": "Simple"
+    },
+    {
+      "Parent Relationship": "Inner",
+      "Total Cost": 0.36,
+      "Scan Direction": "Forward",
+      "Relation Name": "actor",
+      "Parallel Aware": false,
+      "Alias": "actor",
+      "Node Type": "Index Scan",
+      "Index Name": "idx_actor_act_id",
+      "Plan Width": 48,
+      "Startup Cost": 0.29,
+      "Index Cond": "(act_id \u003d movie_cast.act_id)",
+      "Plan Rows": 1
+    }
+  ],
+  "Parallel Aware": false,
+  "Node Type": "Nested Loop",
+  "Join Type": "Inner",
+  "Plan Width": 48,
+  "Startup Cost": 243.17,
+  "Plan Rows": 10,
+  "Inner Unique": true
+}
+
+------------------------------
+
+Indicies Configuration #11:
+Index btree on column act_id in table actor
+Index btree on column mov_title in table movie
+
+------------------------------
+
+1. The Total Cost of the Plan = 222.4
+2. The Estimated Size of the Result Set = 10
+3. The Plan of the Query:
+{
+  "Total Cost": 222.4,
+  "Plans": [
+    {
+      "Parent Relationship": "Outer",
+      "Total Cost": 218.78,
+      "Plans": [
+        {
+          "Parent Relationship": "Outer",
+          "Total Cost": 218.65,
+          "Plans": [
+            {
+              "Parent Relationship": "Outer",
+              "Total Cost": 183.99,
+              "Relation Name": "movie_cast",
+              "Parallel Aware": false,
+              "Alias": "movie_cast",
+              "Node Type": "Seq Scan",
+              "Plan Width": 8,
+              "Startup Cost": 0.0,
+              "Plan Rows": 9999
+            },
+            {
+              "Parent Relationship": "Inner",
+              "Total Cost": 8.29,
+              "Plans": [
+                {
+                  "Parent Relationship": "Outer",
+                  "Total Cost": 8.29,
+                  "Scan Direction": "Forward",
+                  "Relation Name": "movie",
+                  "Parallel Aware": false,
+                  "Alias": "movie",
+                  "Node Type": "Index Scan",
+                  "Index Name": "idx_movie_mov_title",
+                  "Plan Width": 4,
+                  "Startup Cost": 0.28,
+                  "Index Cond": "(mov_title \u003d \u0027movie1\u0027::bpchar)",
+                  "Plan Rows": 1
+                }
+              ],
+              "Parallel Aware": false,
+              "Node Type": "Hash",
+              "Plan Width": 4,
+              "Startup Cost": 8.29,
+              "Plan Rows": 1
+            }
+          ],
+          "Parallel Aware": false,
+          "Node Type": "Hash Join",
+          "Join Type": "Inner",
+          "Plan Width": 4,
+          "Startup Cost": 8.3,
+          "Hash Cond": "(movie_cast.mov_id \u003d movie.mov_id)",
+          "Plan Rows": 10,
+          "Inner Unique": true
+        }
+      ],
+      "Parallel Aware": false,
+      "Node Type": "Aggregate",
+      "Plan Width": 4,
+      "Strategy": "Hashed",
+      "Startup Cost": 218.68,
+      "Group Key": [
+        "movie_cast.act_id"
+      ],
+      "Plan Rows": 10,
+      "Partial Mode": "Simple"
+    },
+    {
+      "Parent Relationship": "Inner",
+      "Total Cost": 0.36,
+      "Scan Direction": "Forward",
+      "Relation Name": "actor",
+      "Parallel Aware": false,
+      "Alias": "actor",
+      "Node Type": "Index Scan",
+      "Index Name": "idx_actor_act_id",
+      "Plan Width": 48,
+      "Startup Cost": 0.29,
+      "Index Cond": "(act_id \u003d movie_cast.act_id)",
+      "Plan Rows": 1
+    }
+  ],
+  "Parallel Aware": false,
+  "Node Type": "Nested Loop",
+  "Join Type": "Inner",
+  "Plan Width": 48,
+  "Startup Cost": 218.96,
+  "Plan Rows": 10,
+  "Inner Unique": true
+}
+
+------------------------------
+
+Indicies Configuration #12:
+Index btree on column act_id in table actor
+Index hash on column mov_title in table movie
+
+------------------------------
+
+1. The Total Cost of the Plan = 222.12
+2. The Estimated Size of the Result Set = 10
+3. The Plan of the Query:
+{
+  "Total Cost": 222.12,
+  "Plans": [
+    {
+      "Parent Relationship": "Outer",
+      "Total Cost": 218.5,
+      "Plans": [
+        {
+          "Parent Relationship": "Outer",
+          "Total Cost": 218.38,
+          "Plans": [
+            {
+              "Parent Relationship": "Outer",
+              "Total Cost": 183.99,
+              "Relation Name": "movie_cast",
+              "Parallel Aware": false,
+              "Alias": "movie_cast",
+              "Node Type": "Seq Scan",
+              "Plan Width": 8,
+              "Startup Cost": 0.0,
+              "Plan Rows": 9999
+            },
+            {
+              "Parent Relationship": "Inner",
+              "Total Cost": 8.02,
+              "Plans": [
+                {
+                  "Parent Relationship": "Outer",
+                  "Total Cost": 8.02,
+                  "Scan Direction": "NoMovement",
+                  "Relation Name": "movie",
+                  "Parallel Aware": false,
+                  "Alias": "movie",
+                  "Node Type": "Index Scan",
+                  "Index Name": "idx_movie_mov_title",
+                  "Plan Width": 4,
+                  "Startup Cost": 0.0,
+                  "Index Cond": "(mov_title \u003d \u0027movie1\u0027::bpchar)",
+                  "Plan Rows": 1
+                }
+              ],
+              "Parallel Aware": false,
+              "Node Type": "Hash",
+              "Plan Width": 4,
+              "Startup Cost": 8.02,
+              "Plan Rows": 1
+            }
+          ],
+          "Parallel Aware": false,
+          "Node Type": "Hash Join",
+          "Join Type": "Inner",
+          "Plan Width": 4,
+          "Startup Cost": 8.03,
+          "Hash Cond": "(movie_cast.mov_id \u003d movie.mov_id)",
+          "Plan Rows": 10,
+          "Inner Unique": true
+        }
+      ],
+      "Parallel Aware": false,
+      "Node Type": "Aggregate",
+      "Plan Width": 4,
+      "Strategy": "Hashed",
+      "Startup Cost": 218.4,
+      "Group Key": [
+        "movie_cast.act_id"
+      ],
+      "Plan Rows": 10,
+      "Partial Mode": "Simple"
+    },
+    {
+      "Parent Relationship": "Inner",
+      "Total Cost": 0.36,
+      "Scan Direction": "Forward",
+      "Relation Name": "actor",
+      "Parallel Aware": false,
+      "Alias": "actor",
+      "Node Type": "Index Scan",
+      "Index Name": "idx_actor_act_id",
+      "Plan Width": 48,
+      "Startup Cost": 0.29,
+      "Index Cond": "(act_id \u003d movie_cast.act_id)",
+      "Plan Rows": 1
+    }
+  ],
+  "Parallel Aware": false,
+  "Node Type": "Nested Loop",
+  "Join Type": "Inner",
+  "Plan Width": 48,
+  "Startup Cost": 218.69,
+  "Plan Rows": 10,
+  "Inner Unique": true
+}
+
+------------------------------
+
+Indicies Configuration #13:
+Index btree on column act_id in table actor
+Index btree on column mov_id in table movie_cast
+
+------------------------------
+
+1. The Total Cost of the Plan = 70.48
+2. The Estimated Size of the Result Set = 10
+3. The Plan of the Query:
+{
+  "Total Cost": 70.48,
+  "Plans": [
+    {
+      "Parent Relationship": "Outer",
+      "Total Cost": 66.86,
+      "Plans": [
+        {
+          "Parent Relationship": "Outer",
+          "Total Cost": 66.74,
+          "Plans": [
+            {
+              "Parent Relationship": "Outer",
+              "Total Cost": 32.5,
+              "Relation Name": "movie",
+              "Parallel Aware": false,
+              "Filter": "(mov_title \u003d \u0027movie1\u0027::bpchar)",
+              "Alias": "movie",
+              "Node Type": "Seq Scan",
+              "Plan Width": 4,
+              "Startup Cost": 0.0,
+              "Plan Rows": 1
+            },
+            {
+              "Parent Relationship": "Inner",
+              "Total Cost": 34.14,
+              "Recheck Cond": "(mov_id \u003d movie.mov_id)",
+              "Plans": [
+                {
+                  "Parent Relationship": "Outer",
+                  "Total Cost": 4.36,
+                  "Parallel Aware": false,
+                  "Node Type": "Bitmap Index Scan",
+                  "Index Name": "idx_movie_cast_mov_id",
+                  "Plan Width": 0,
+                  "Startup Cost": 0.0,
+                  "Index Cond": "(mov_id \u003d movie.mov_id)",
+                  "Plan Rows": 10
+                }
+              ],
+              "Relation Name": "movie_cast",
+              "Parallel Aware": false,
+              "Alias": "movie_cast",
+              "Node Type": "Bitmap Heap Scan",
+              "Plan Width": 8,
+              "Startup Cost": 4.36,
+              "Plan Rows": 10
+            }
+          ],
+          "Parallel Aware": false,
+          "Node Type": "Nested Loop",
+          "Join Type": "Inner",
+          "Plan Width": 4,
+          "Startup Cost": 4.36,
+          "Plan Rows": 10,
+          "Inner Unique": false
+        }
+      ],
+      "Parallel Aware": false,
+      "Node Type": "Aggregate",
+      "Plan Width": 4,
+      "Strategy": "Hashed",
+      "Startup Cost": 66.76,
+      "Group Key": [
+        "movie_cast.act_id"
+      ],
+      "Plan Rows": 10,
+      "Partial Mode": "Simple"
+    },
+    {
+      "Parent Relationship": "Inner",
+      "Total Cost": 0.36,
+      "Scan Direction": "Forward",
+      "Relation Name": "actor",
+      "Parallel Aware": false,
+      "Alias": "actor",
+      "Node Type": "Index Scan",
+      "Index Name": "idx_actor_act_id",
+      "Plan Width": 48,
+      "Startup Cost": 0.29,
+      "Index Cond": "(act_id \u003d movie_cast.act_id)",
+      "Plan Rows": 1
+    }
+  ],
+  "Parallel Aware": false,
+  "Node Type": "Nested Loop",
+  "Join Type": "Inner",
+  "Plan Width": 48,
+  "Startup Cost": 67.05,
+  "Plan Rows": 10,
+  "Inner Unique": true
+}
+
+------------------------------
+
+Indicies Configuration #14:
+Index btree on column act_id in table actor
+Index btree on column mov_id in table movie_cast
+Index btree on column mov_title in table movie
+
+------------------------------
+
+1. The Total Cost of the Plan = 46.27
+2. The Estimated Size of the Result Set = 10
+3. The Plan of the Query:
+{
+  "Total Cost": 46.27,
+  "Plans": [
+    {
+      "Parent Relationship": "Outer",
+      "Total Cost": 42.65,
+      "Plans": [
+        {
+          "Parent Relationship": "Outer",
+          "Total Cost": 42.53,
+          "Plans": [
+            {
+              "Parent Relationship": "Outer",
+              "Total Cost": 8.29,
+              "Scan Direction": "Forward",
+              "Relation Name": "movie",
+              "Parallel Aware": false,
+              "Alias": "movie",
+              "Node Type": "Index Scan",
+              "Index Name": "idx_movie_mov_title",
+              "Plan Width": 4,
+              "Startup Cost": 0.28,
+              "Index Cond": "(mov_title \u003d \u0027movie1\u0027::bpchar)",
+              "Plan Rows": 1
+            },
+            {
+              "Parent Relationship": "Inner",
+              "Total Cost": 34.14,
+              "Recheck Cond": "(mov_id \u003d movie.mov_id)",
+              "Plans": [
+                {
+                  "Parent Relationship": "Outer",
+                  "Total Cost": 4.36,
+                  "Parallel Aware": false,
+                  "Node Type": "Bitmap Index Scan",
+                  "Index Name": "idx_movie_cast_mov_id",
+                  "Plan Width": 0,
+                  "Startup Cost": 0.0,
+                  "Index Cond": "(mov_id \u003d movie.mov_id)",
+                  "Plan Rows": 10
+                }
+              ],
+              "Relation Name": "movie_cast",
+              "Parallel Aware": false,
+              "Alias": "movie_cast",
+              "Node Type": "Bitmap Heap Scan",
+              "Plan Width": 8,
+              "Startup Cost": 4.36,
+              "Plan Rows": 10
+            }
+          ],
+          "Parallel Aware": false,
+          "Node Type": "Nested Loop",
+          "Join Type": "Inner",
+          "Plan Width": 4,
+          "Startup Cost": 4.64,
+          "Plan Rows": 10,
+          "Inner Unique": false
+        }
+      ],
+      "Parallel Aware": false,
+      "Node Type": "Aggregate",
+      "Plan Width": 4,
+      "Strategy": "Hashed",
+      "Startup Cost": 42.55,
+      "Group Key": [
+        "movie_cast.act_id"
+      ],
+      "Plan Rows": 10,
+      "Partial Mode": "Simple"
+    },
+    {
+      "Parent Relationship": "Inner",
+      "Total Cost": 0.36,
+      "Scan Direction": "Forward",
+      "Relation Name": "actor",
+      "Parallel Aware": false,
+      "Alias": "actor",
+      "Node Type": "Index Scan",
+      "Index Name": "idx_actor_act_id",
+      "Plan Width": 48,
+      "Startup Cost": 0.29,
+      "Index Cond": "(act_id \u003d movie_cast.act_id)",
+      "Plan Rows": 1
+    }
+  ],
+  "Parallel Aware": false,
+  "Node Type": "Nested Loop",
+  "Join Type": "Inner",
+  "Plan Width": 48,
+  "Startup Cost": 42.84,
+  "Plan Rows": 10,
+  "Inner Unique": true
+}
+
+------------------------------
+
+Indicies Configuration #15:
+Index btree on column act_id in table actor
+Index btree on column mov_id in table movie_cast
+Index hash on column mov_title in table movie
+
+------------------------------
+
+1. The Total Cost of the Plan = 46.0
+2. The Estimated Size of the Result Set = 10
+3. The Plan of the Query:
+{
+  "Total Cost": 46.0,
+  "Plans": [
+    {
+      "Parent Relationship": "Outer",
+      "Total Cost": 42.38,
+      "Plans": [
+        {
+          "Parent Relationship": "Outer",
+          "Total Cost": 42.25,
+          "Plans": [
+            {
+              "Parent Relationship": "Outer",
+              "Total Cost": 8.02,
+              "Scan Direction": "NoMovement",
+              "Relation Name": "movie",
+              "Parallel Aware": false,
+              "Alias": "movie",
+              "Node Type": "Index Scan",
+              "Index Name": "idx_movie_mov_title",
+              "Plan Width": 4,
+              "Startup Cost": 0.0,
+              "Index Cond": "(mov_title \u003d \u0027movie1\u0027::bpchar)",
+              "Plan Rows": 1
+            },
+            {
+              "Parent Relationship": "Inner",
+              "Total Cost": 34.14,
+              "Recheck Cond": "(mov_id \u003d movie.mov_id)",
+              "Plans": [
+                {
+                  "Parent Relationship": "Outer",
+                  "Total Cost": 4.36,
+                  "Parallel Aware": false,
+                  "Node Type": "Bitmap Index Scan",
+                  "Index Name": "idx_movie_cast_mov_id",
+                  "Plan Width": 0,
+                  "Startup Cost": 0.0,
+                  "Index Cond": "(mov_id \u003d movie.mov_id)",
+                  "Plan Rows": 10
+                }
+              ],
+              "Relation Name": "movie_cast",
+              "Parallel Aware": false,
+              "Alias": "movie_cast",
+              "Node Type": "Bitmap Heap Scan",
+              "Plan Width": 8,
+              "Startup Cost": 4.36,
+              "Plan Rows": 10
+            }
+          ],
+          "Parallel Aware": false,
+          "Node Type": "Nested Loop",
+          "Join Type": "Inner",
+          "Plan Width": 4,
+          "Startup Cost": 4.36,
+          "Plan Rows": 10,
+          "Inner Unique": false
+        }
+      ],
+      "Parallel Aware": false,
+      "Node Type": "Aggregate",
+      "Plan Width": 4,
+      "Strategy": "Hashed",
+      "Startup Cost": 42.28,
+      "Group Key": [
+        "movie_cast.act_id"
+      ],
+      "Plan Rows": 10,
+      "Partial Mode": "Simple"
+    },
+    {
+      "Parent Relationship": "Inner",
+      "Total Cost": 0.36,
+      "Scan Direction": "Forward",
+      "Relation Name": "actor",
+      "Parallel Aware": false,
+      "Alias": "actor",
+      "Node Type": "Index Scan",
+      "Index Name": "idx_actor_act_id",
+      "Plan Width": 48,
+      "Startup Cost": 0.29,
+      "Index Cond": "(act_id \u003d movie_cast.act_id)",
+      "Plan Rows": 1
+    }
+  ],
+  "Parallel Aware": false,
+  "Node Type": "Nested Loop",
+  "Join Type": "Inner",
+  "Plan Width": 48,
+  "Startup Cost": 42.56,
+  "Plan Rows": 10,
+  "Inner Unique": true
+}
+
+------------------------------
+
+Indicies Configuration #16:
+Index btree on column act_id in table actor
+Index hash on column mov_id in table movie_cast
+
+------------------------------
+
+1. The Total Cost of the Plan = 70.19
+2. The Estimated Size of the Result Set = 10
+3. The Plan of the Query:
+{
+  "Total Cost": 70.19,
+  "Plans": [
+    {
+      "Parent Relationship": "Outer",
+      "Total Cost": 66.58,
+      "Plans": [
+        {
+          "Parent Relationship": "Outer",
+          "Total Cost": 66.45,
+          "Plans": [
+            {
+              "Parent Relationship": "Outer",
+              "Total Cost": 32.5,
+              "Relation Name": "movie",
+              "Parallel Aware": false,
+              "Filter": "(mov_title \u003d \u0027movie1\u0027::bpchar)",
+              "Alias": "movie",
+              "Node Type": "Seq Scan",
+              "Plan Width": 4,
+              "Startup Cost": 0.0,
+              "Plan Rows": 1
+            },
+            {
+              "Parent Relationship": "Inner",
+              "Total Cost": 33.85,
+              "Recheck Cond": "(mov_id \u003d movie.mov_id)",
+              "Plans": [
+                {
+                  "Parent Relationship": "Outer",
+                  "Total Cost": 4.08,
+                  "Parallel Aware": false,
+                  "Node Type": "Bitmap Index Scan",
+                  "Index Name": "idx_movie_cast_mov_id",
+                  "Plan Width": 0,
+                  "Startup Cost": 0.0,
+                  "Index Cond": "(mov_id \u003d movie.mov_id)",
+                  "Plan Rows": 10
+                }
+              ],
+              "Relation Name": "movie_cast",
+              "Parallel Aware": false,
+              "Alias": "movie_cast",
+              "Node Type": "Bitmap Heap Scan",
+              "Plan Width": 8,
+              "Startup Cost": 4.08,
+              "Plan Rows": 10
+            }
+          ],
+          "Parallel Aware": false,
+          "Node Type": "Nested Loop",
+          "Join Type": "Inner",
+          "Plan Width": 4,
+          "Startup Cost": 4.08,
+          "Plan Rows": 10,
+          "Inner Unique": false
+        }
+      ],
+      "Parallel Aware": false,
+      "Node Type": "Aggregate",
+      "Plan Width": 4,
+      "Strategy": "Hashed",
+      "Startup Cost": 66.48,
+      "Group Key": [
+        "movie_cast.act_id"
+      ],
+      "Plan Rows": 10,
+      "Partial Mode": "Simple"
+    },
+    {
+      "Parent Relationship": "Inner",
+      "Total Cost": 0.36,
+      "Scan Direction": "Forward",
+      "Relation Name": "actor",
+      "Parallel Aware": false,
+      "Alias": "actor",
+      "Node Type": "Index Scan",
+      "Index Name": "idx_actor_act_id",
+      "Plan Width": 48,
+      "Startup Cost": 0.29,
+      "Index Cond": "(act_id \u003d movie_cast.act_id)",
+      "Plan Rows": 1
+    }
+  ],
+  "Parallel Aware": false,
+  "Node Type": "Nested Loop",
+  "Join Type": "Inner",
+  "Plan Width": 48,
+  "Startup Cost": 66.76,
+  "Plan Rows": 10,
+  "Inner Unique": true
+}
+
+------------------------------
+
+Indicies Configuration #17:
+Index btree on column act_id in table actor
+Index hash on column mov_id in table movie_cast
+Index btree on column mov_title in table movie
+
+------------------------------
+
+1. The Total Cost of the Plan = 45.99
+2. The Estimated Size of the Result Set = 10
+3. The Plan of the Query:
+{
+  "Total Cost": 45.99,
+  "Plans": [
+    {
+      "Parent Relationship": "Outer",
+      "Total Cost": 42.37,
+      "Plans": [
+        {
+          "Parent Relationship": "Outer",
+          "Total Cost": 42.24,
+          "Plans": [
+            {
+              "Parent Relationship": "Outer",
+              "Total Cost": 8.29,
+              "Scan Direction": "Forward",
+              "Relation Name": "movie",
+              "Parallel Aware": false,
+              "Alias": "movie",
+              "Node Type": "Index Scan",
+              "Index Name": "idx_movie_mov_title",
+              "Plan Width": 4,
+              "Startup Cost": 0.28,
+              "Index Cond": "(mov_title \u003d \u0027movie1\u0027::bpchar)",
+              "Plan Rows": 1
+            },
+            {
+              "Parent Relationship": "Inner",
+              "Total Cost": 33.85,
+              "Recheck Cond": "(mov_id \u003d movie.mov_id)",
+              "Plans": [
+                {
+                  "Parent Relationship": "Outer",
+                  "Total Cost": 4.08,
+                  "Parallel Aware": false,
+                  "Node Type": "Bitmap Index Scan",
+                  "Index Name": "idx_movie_cast_mov_id",
+                  "Plan Width": 0,
+                  "Startup Cost": 0.0,
+                  "Index Cond": "(mov_id \u003d movie.mov_id)",
+                  "Plan Rows": 10
+                }
+              ],
+              "Relation Name": "movie_cast",
+              "Parallel Aware": false,
+              "Alias": "movie_cast",
+              "Node Type": "Bitmap Heap Scan",
+              "Plan Width": 8,
+              "Startup Cost": 4.08,
+              "Plan Rows": 10
+            }
+          ],
+          "Parallel Aware": false,
+          "Node Type": "Nested Loop",
+          "Join Type": "Inner",
+          "Plan Width": 4,
+          "Startup Cost": 4.35,
+          "Plan Rows": 10,
+          "Inner Unique": false
+        }
+      ],
+      "Parallel Aware": false,
+      "Node Type": "Aggregate",
+      "Plan Width": 4,
+      "Strategy": "Hashed",
+      "Startup Cost": 42.27,
+      "Group Key": [
+        "movie_cast.act_id"
+      ],
+      "Plan Rows": 10,
+      "Partial Mode": "Simple"
+    },
+    {
+      "Parent Relationship": "Inner",
+      "Total Cost": 0.36,
+      "Scan Direction": "Forward",
+      "Relation Name": "actor",
+      "Parallel Aware": false,
+      "Alias": "actor",
+      "Node Type": "Index Scan",
+      "Index Name": "idx_actor_act_id",
+      "Plan Width": 48,
+      "Startup Cost": 0.29,
+      "Index Cond": "(act_id \u003d movie_cast.act_id)",
+      "Plan Rows": 1
+    }
+  ],
+  "Parallel Aware": false,
+  "Node Type": "Nested Loop",
+  "Join Type": "Inner",
+  "Plan Width": 48,
+  "Startup Cost": 42.55,
+  "Plan Rows": 10,
+  "Inner Unique": true
+}
+
+------------------------------
+
+Indicies Configuration #18:
+Index btree on column act_id in table actor
+Index hash on column mov_id in table movie_cast
+Index hash on column mov_title in table movie
+
+------------------------------
+
+1. The Total Cost of the Plan = 45.71
+2. The Estimated Size of the Result Set = 10
+3. The Plan of the Query:
+{
+  "Total Cost": 45.71,
+  "Plans": [
+    {
+      "Parent Relationship": "Outer",
+      "Total Cost": 42.09,
+      "Plans": [
+        {
+          "Parent Relationship": "Outer",
+          "Total Cost": 41.97,
+          "Plans": [
+            {
+              "Parent Relationship": "Outer",
+              "Total Cost": 8.02,
+              "Scan Direction": "NoMovement",
+              "Relation Name": "movie",
+              "Parallel Aware": false,
+              "Alias": "movie",
+              "Node Type": "Index Scan",
+              "Index Name": "idx_movie_mov_title",
+              "Plan Width": 4,
+              "Startup Cost": 0.0,
+              "Index Cond": "(mov_title \u003d \u0027movie1\u0027::bpchar)",
+              "Plan Rows": 1
+            },
+            {
+              "Parent Relationship": "Inner",
+              "Total Cost": 33.85,
+              "Recheck Cond": "(mov_id \u003d movie.mov_id)",
+              "Plans": [
+                {
+                  "Parent Relationship": "Outer",
+                  "Total Cost": 4.08,
+                  "Parallel Aware": false,
+                  "Node Type": "Bitmap Index Scan",
+                  "Index Name": "idx_movie_cast_mov_id",
+                  "Plan Width": 0,
+                  "Startup Cost": 0.0,
+                  "Index Cond": "(mov_id \u003d movie.mov_id)",
+                  "Plan Rows": 10
+                }
+              ],
+              "Relation Name": "movie_cast",
+              "Parallel Aware": false,
+              "Alias": "movie_cast",
+              "Node Type": "Bitmap Heap Scan",
+              "Plan Width": 8,
+              "Startup Cost": 4.08,
+              "Plan Rows": 10
+            }
+          ],
+          "Parallel Aware": false,
+          "Node Type": "Nested Loop",
+          "Join Type": "Inner",
+          "Plan Width": 4,
+          "Startup Cost": 4.08,
+          "Plan Rows": 10,
+          "Inner Unique": false
+        }
+      ],
+      "Parallel Aware": false,
+      "Node Type": "Aggregate",
+      "Plan Width": 4,
+      "Strategy": "Hashed",
+      "Startup Cost": 41.99,
+      "Group Key": [
+        "movie_cast.act_id"
+      ],
+      "Plan Rows": 10,
+      "Partial Mode": "Simple"
+    },
+    {
+      "Parent Relationship": "Inner",
+      "Total Cost": 0.36,
+      "Scan Direction": "Forward",
+      "Relation Name": "actor",
+      "Parallel Aware": false,
+      "Alias": "actor",
+      "Node Type": "Index Scan",
+      "Index Name": "idx_actor_act_id",
+      "Plan Width": 48,
+      "Startup Cost": 0.29,
+      "Index Cond": "(act_id \u003d movie_cast.act_id)",
+      "Plan Rows": 1
+    }
+  ],
+  "Parallel Aware": false,
+  "Node Type": "Nested Loop",
+  "Join Type": "Inner",
+  "Plan Width": 48,
+  "Startup Cost": 42.28,
+  "Plan Rows": 10,
+  "Inner Unique": true
+}
+
+------------------------------
+
+Indicies Configuration #19:
+Index hash on column act_id in table actor
+
+------------------------------
+
+1. The Total Cost of the Plan = 243.88
+2. The Estimated Size of the Result Set = 10
+3. The Plan of the Query:
+{
+  "Total Cost": 243.88,
+  "Plans": [
+    {
+      "Parent Relationship": "Outer",
+      "Total Cost": 242.99,
+      "Plans": [
+        {
+          "Parent Relationship": "Outer",
+          "Total Cost": 242.86,
+          "Plans": [
+            {
+              "Parent Relationship": "Outer",
+              "Total Cost": 183.99,
+              "Relation Name": "movie_cast",
+              "Parallel Aware": false,
+              "Alias": "movie_cast",
+              "Node Type": "Seq Scan",
+              "Plan Width": 8,
+              "Startup Cost": 0.0,
+              "Plan Rows": 9999
+            },
+            {
+              "Parent Relationship": "Inner",
+              "Total Cost": 32.5,
+              "Plans": [
+                {
+                  "Parent Relationship": "Outer",
+                  "Total Cost": 32.5,
+                  "Relation Name": "movie",
+                  "Parallel Aware": false,
+                  "Filter": "(mov_title \u003d \u0027movie1\u0027::bpchar)",
+                  "Alias": "movie",
+                  "Node Type": "Seq Scan",
+                  "Plan Width": 4,
+                  "Startup Cost": 0.0,
+                  "Plan Rows": 1
+                }
+              ],
+              "Parallel Aware": false,
+              "Node Type": "Hash",
+              "Plan Width": 4,
+              "Startup Cost": 32.5,
+              "Plan Rows": 1
+            }
+          ],
+          "Parallel Aware": false,
+          "Node Type": "Hash Join",
+          "Join Type": "Inner",
+          "Plan Width": 4,
+          "Startup Cost": 32.51,
+          "Hash Cond": "(movie_cast.mov_id \u003d movie.mov_id)",
+          "Plan Rows": 10,
+          "Inner Unique": true
+        }
+      ],
+      "Parallel Aware": false,
+      "Node Type": "Aggregate",
+      "Plan Width": 4,
+      "Strategy": "Hashed",
+      "Startup Cost": 242.89,
+      "Group Key": [
+        "movie_cast.act_id"
+      ],
+      "Plan Rows": 10,
+      "Partial Mode": "Simple"
+    },
+    {
+      "Parent Relationship": "Inner",
+      "Total Cost": 0.09,
+      "Scan Direction": "NoMovement",
+      "Relation Name": "actor",
+      "Parallel Aware": false,
+      "Alias": "actor",
+      "Node Type": "Index Scan",
+      "Index Name": "idx_actor_act_id",
+      "Plan Width": 48,
+      "Startup Cost": 0.0,
+      "Index Cond": "(act_id \u003d movie_cast.act_id)",
+      "Plan Rows": 1
+    }
+  ],
+  "Parallel Aware": false,
+  "Node Type": "Nested Loop",
+  "Join Type": "Inner",
+  "Plan Width": 48,
+  "Startup Cost": 242.89,
+  "Plan Rows": 10,
+  "Inner Unique": true
+}
+
+------------------------------
+
+Indicies Configuration #20:
+Index hash on column act_id in table actor
+Index btree on column mov_title in table movie
+
+------------------------------
+
+1. The Total Cost of the Plan = 219.67
+2. The Estimated Size of the Result Set = 10
+3. The Plan of the Query:
+{
+  "Total Cost": 219.67,
+  "Plans": [
+    {
+      "Parent Relationship": "Outer",
+      "Total Cost": 218.78,
+      "Plans": [
+        {
+          "Parent Relationship": "Outer",
+          "Total Cost": 218.65,
+          "Plans": [
+            {
+              "Parent Relationship": "Outer",
+              "Total Cost": 183.99,
+              "Relation Name": "movie_cast",
+              "Parallel Aware": false,
+              "Alias": "movie_cast",
+              "Node Type": "Seq Scan",
+              "Plan Width": 8,
+              "Startup Cost": 0.0,
+              "Plan Rows": 9999
+            },
+            {
+              "Parent Relationship": "Inner",
+              "Total Cost": 8.29,
+              "Plans": [
+                {
+                  "Parent Relationship": "Outer",
+                  "Total Cost": 8.29,
+                  "Scan Direction": "Forward",
+                  "Relation Name": "movie",
+                  "Parallel Aware": false,
+                  "Alias": "movie",
+                  "Node Type": "Index Scan",
+                  "Index Name": "idx_movie_mov_title",
+                  "Plan Width": 4,
+                  "Startup Cost": 0.28,
+                  "Index Cond": "(mov_title \u003d \u0027movie1\u0027::bpchar)",
+                  "Plan Rows": 1
+                }
+              ],
+              "Parallel Aware": false,
+              "Node Type": "Hash",
+              "Plan Width": 4,
+              "Startup Cost": 8.29,
+              "Plan Rows": 1
+            }
+          ],
+          "Parallel Aware": false,
+          "Node Type": "Hash Join",
+          "Join Type": "Inner",
+          "Plan Width": 4,
+          "Startup Cost": 8.3,
+          "Hash Cond": "(movie_cast.mov_id \u003d movie.mov_id)",
+          "Plan Rows": 10,
+          "Inner Unique": true
+        }
+      ],
+      "Parallel Aware": false,
+      "Node Type": "Aggregate",
+      "Plan Width": 4,
+      "Strategy": "Hashed",
+      "Startup Cost": 218.68,
+      "Group Key": [
+        "movie_cast.act_id"
+      ],
+      "Plan Rows": 10,
+      "Partial Mode": "Simple"
+    },
+    {
+      "Parent Relationship": "Inner",
+      "Total Cost": 0.09,
+      "Scan Direction": "NoMovement",
+      "Relation Name": "actor",
+      "Parallel Aware": false,
+      "Alias": "actor",
+      "Node Type": "Index Scan",
+      "Index Name": "idx_actor_act_id",
+      "Plan Width": 48,
+      "Startup Cost": 0.0,
+      "Index Cond": "(act_id \u003d movie_cast.act_id)",
+      "Plan Rows": 1
+    }
+  ],
+  "Parallel Aware": false,
+  "Node Type": "Nested Loop",
+  "Join Type": "Inner",
+  "Plan Width": 48,
+  "Startup Cost": 218.68,
+  "Plan Rows": 10,
+  "Inner Unique": true
+}
+
+------------------------------
+
+Indicies Configuration #21:
+Index hash on column act_id in table actor
+Index hash on column mov_title in table movie
+
+------------------------------
+
+1. The Total Cost of the Plan = 219.39
+2. The Estimated Size of the Result Set = 10
+3. The Plan of the Query:
+{
+  "Total Cost": 219.39,
+  "Plans": [
+    {
+      "Parent Relationship": "Outer",
+      "Total Cost": 218.5,
+      "Plans": [
+        {
+          "Parent Relationship": "Outer",
+          "Total Cost": 218.38,
+          "Plans": [
+            {
+              "Parent Relationship": "Outer",
+              "Total Cost": 183.99,
+              "Relation Name": "movie_cast",
+              "Parallel Aware": false,
+              "Alias": "movie_cast",
+              "Node Type": "Seq Scan",
+              "Plan Width": 8,
+              "Startup Cost": 0.0,
+              "Plan Rows": 9999
+            },
+            {
+              "Parent Relationship": "Inner",
+              "Total Cost": 8.02,
+              "Plans": [
+                {
+                  "Parent Relationship": "Outer",
+                  "Total Cost": 8.02,
+                  "Scan Direction": "NoMovement",
+                  "Relation Name": "movie",
+                  "Parallel Aware": false,
+                  "Alias": "movie",
+                  "Node Type": "Index Scan",
+                  "Index Name": "idx_movie_mov_title",
+                  "Plan Width": 4,
+                  "Startup Cost": 0.0,
+                  "Index Cond": "(mov_title \u003d \u0027movie1\u0027::bpchar)",
+                  "Plan Rows": 1
+                }
+              ],
+              "Parallel Aware": false,
+              "Node Type": "Hash",
+              "Plan Width": 4,
+              "Startup Cost": 8.02,
+              "Plan Rows": 1
+            }
+          ],
+          "Parallel Aware": false,
+          "Node Type": "Hash Join",
+          "Join Type": "Inner",
+          "Plan Width": 4,
+          "Startup Cost": 8.03,
+          "Hash Cond": "(movie_cast.mov_id \u003d movie.mov_id)",
+          "Plan Rows": 10,
+          "Inner Unique": true
+        }
+      ],
+      "Parallel Aware": false,
+      "Node Type": "Aggregate",
+      "Plan Width": 4,
+      "Strategy": "Hashed",
+      "Startup Cost": 218.4,
+      "Group Key": [
+        "movie_cast.act_id"
+      ],
+      "Plan Rows": 10,
+      "Partial Mode": "Simple"
+    },
+    {
+      "Parent Relationship": "Inner",
+      "Total Cost": 0.09,
+      "Scan Direction": "NoMovement",
+      "Relation Name": "actor",
+      "Parallel Aware": false,
+      "Alias": "actor",
+      "Node Type": "Index Scan",
+      "Index Name": "idx_actor_act_id",
+      "Plan Width": 48,
+      "Startup Cost": 0.0,
+      "Index Cond": "(act_id \u003d movie_cast.act_id)",
+      "Plan Rows": 1
+    }
+  ],
+  "Parallel Aware": false,
+  "Node Type": "Nested Loop",
+  "Join Type": "Inner",
+  "Plan Width": 48,
+  "Startup Cost": 218.4,
+  "Plan Rows": 10,
+  "Inner Unique": true
+}
+
+------------------------------
+
+Indicies Configuration #22:
+Index hash on column act_id in table actor
+Index btree on column mov_id in table movie_cast
+
+------------------------------
+
+1. The Total Cost of the Plan = 67.75
+2. The Estimated Size of the Result Set = 10
+3. The Plan of the Query:
+{
+  "Total Cost": 67.75,
+  "Plans": [
+    {
+      "Parent Relationship": "Outer",
+      "Total Cost": 66.86,
+      "Plans": [
+        {
+          "Parent Relationship": "Outer",
+          "Total Cost": 66.74,
+          "Plans": [
+            {
+              "Parent Relationship": "Outer",
+              "Total Cost": 32.5,
+              "Relation Name": "movie",
+              "Parallel Aware": false,
+              "Filter": "(mov_title \u003d \u0027movie1\u0027::bpchar)",
+              "Alias": "movie",
+              "Node Type": "Seq Scan",
+              "Plan Width": 4,
+              "Startup Cost": 0.0,
+              "Plan Rows": 1
+            },
+            {
+              "Parent Relationship": "Inner",
+              "Total Cost": 34.14,
+              "Recheck Cond": "(mov_id \u003d movie.mov_id)",
+              "Plans": [
+                {
+                  "Parent Relationship": "Outer",
+                  "Total Cost": 4.36,
+                  "Parallel Aware": false,
+                  "Node Type": "Bitmap Index Scan",
+                  "Index Name": "idx_movie_cast_mov_id",
+                  "Plan Width": 0,
+                  "Startup Cost": 0.0,
+                  "Index Cond": "(mov_id \u003d movie.mov_id)",
+                  "Plan Rows": 10
+                }
+              ],
+              "Relation Name": "movie_cast",
+              "Parallel Aware": false,
+              "Alias": "movie_cast",
+              "Node Type": "Bitmap Heap Scan",
+              "Plan Width": 8,
+              "Startup Cost": 4.36,
+              "Plan Rows": 10
+            }
+          ],
+          "Parallel Aware": false,
+          "Node Type": "Nested Loop",
+          "Join Type": "Inner",
+          "Plan Width": 4,
+          "Startup Cost": 4.36,
+          "Plan Rows": 10,
+          "Inner Unique": false
+        }
+      ],
+      "Parallel Aware": false,
+      "Node Type": "Aggregate",
+      "Plan Width": 4,
+      "Strategy": "Hashed",
+      "Startup Cost": 66.76,
+      "Group Key": [
+        "movie_cast.act_id"
+      ],
+      "Plan Rows": 10,
+      "Partial Mode": "Simple"
+    },
+    {
+      "Parent Relationship": "Inner",
+      "Total Cost": 0.09,
+      "Scan Direction": "NoMovement",
+      "Relation Name": "actor",
+      "Parallel Aware": false,
+      "Alias": "actor",
+      "Node Type": "Index Scan",
+      "Index Name": "idx_actor_act_id",
+      "Plan Width": 48,
+      "Startup Cost": 0.0,
+      "Index Cond": "(act_id \u003d movie_cast.act_id)",
+      "Plan Rows": 1
+    }
+  ],
+  "Parallel Aware": false,
+  "Node Type": "Nested Loop",
+  "Join Type": "Inner",
+  "Plan Width": 48,
+  "Startup Cost": 66.76,
+  "Plan Rows": 10,
+  "Inner Unique": true
+}
+
+------------------------------
+
+Indicies Configuration #23:
+Index hash on column act_id in table actor
+Index btree on column mov_id in table movie_cast
+Index btree on column mov_title in table movie
+
+------------------------------
+
+1. The Total Cost of the Plan = 43.55
+2. The Estimated Size of the Result Set = 10
+3. The Plan of the Query:
+{
+  "Total Cost": 43.55,
+  "Plans": [
+    {
+      "Parent Relationship": "Outer",
+      "Total Cost": 42.65,
+      "Plans": [
+        {
+          "Parent Relationship": "Outer",
+          "Total Cost": 42.53,
+          "Plans": [
+            {
+              "Parent Relationship": "Outer",
+              "Total Cost": 8.29,
+              "Scan Direction": "Forward",
+              "Relation Name": "movie",
+              "Parallel Aware": false,
+              "Alias": "movie",
+              "Node Type": "Index Scan",
+              "Index Name": "idx_movie_mov_title",
+              "Plan Width": 4,
+              "Startup Cost": 0.28,
+              "Index Cond": "(mov_title \u003d \u0027movie1\u0027::bpchar)",
+              "Plan Rows": 1
+            },
+            {
+              "Parent Relationship": "Inner",
+              "Total Cost": 34.14,
+              "Recheck Cond": "(mov_id \u003d movie.mov_id)",
+              "Plans": [
+                {
+                  "Parent Relationship": "Outer",
+                  "Total Cost": 4.36,
+                  "Parallel Aware": false,
+                  "Node Type": "Bitmap Index Scan",
+                  "Index Name": "idx_movie_cast_mov_id",
+                  "Plan Width": 0,
+                  "Startup Cost": 0.0,
+                  "Index Cond": "(mov_id \u003d movie.mov_id)",
+                  "Plan Rows": 10
+                }
+              ],
+              "Relation Name": "movie_cast",
+              "Parallel Aware": false,
+              "Alias": "movie_cast",
+              "Node Type": "Bitmap Heap Scan",
+              "Plan Width": 8,
+              "Startup Cost": 4.36,
+              "Plan Rows": 10
+            }
+          ],
+          "Parallel Aware": false,
+          "Node Type": "Nested Loop",
+          "Join Type": "Inner",
+          "Plan Width": 4,
+          "Startup Cost": 4.64,
+          "Plan Rows": 10,
+          "Inner Unique": false
+        }
+      ],
+      "Parallel Aware": false,
+      "Node Type": "Aggregate",
+      "Plan Width": 4,
+      "Strategy": "Hashed",
+      "Startup Cost": 42.55,
+      "Group Key": [
+        "movie_cast.act_id"
+      ],
+      "Plan Rows": 10,
+      "Partial Mode": "Simple"
+    },
+    {
+      "Parent Relationship": "Inner",
+      "Total Cost": 0.09,
+      "Scan Direction": "NoMovement",
+      "Relation Name": "actor",
+      "Parallel Aware": false,
+      "Alias": "actor",
+      "Node Type": "Index Scan",
+      "Index Name": "idx_actor_act_id",
+      "Plan Width": 48,
+      "Startup Cost": 0.0,
+      "Index Cond": "(act_id \u003d movie_cast.act_id)",
+      "Plan Rows": 1
+    }
+  ],
+  "Parallel Aware": false,
+  "Node Type": "Nested Loop",
+  "Join Type": "Inner",
+  "Plan Width": 48,
+  "Startup Cost": 42.55,
+  "Plan Rows": 10,
+  "Inner Unique": true
+}
+
+------------------------------
+
+Indicies Configuration #24:
+Index hash on column act_id in table actor
+Index btree on column mov_id in table movie_cast
+Index hash on column mov_title in table movie
+
+------------------------------
+
+1. The Total Cost of the Plan = 43.27
+2. The Estimated Size of the Result Set = 10
+3. The Plan of the Query:
+{
+  "Total Cost": 43.27,
+  "Plans": [
+    {
+      "Parent Relationship": "Outer",
+      "Total Cost": 42.38,
+      "Plans": [
+        {
+          "Parent Relationship": "Outer",
+          "Total Cost": 42.25,
+          "Plans": [
+            {
+              "Parent Relationship": "Outer",
+              "Total Cost": 8.02,
+              "Scan Direction": "NoMovement",
+              "Relation Name": "movie",
+              "Parallel Aware": false,
+              "Alias": "movie",
+              "Node Type": "Index Scan",
+              "Index Name": "idx_movie_mov_title",
+              "Plan Width": 4,
+              "Startup Cost": 0.0,
+              "Index Cond": "(mov_title \u003d \u0027movie1\u0027::bpchar)",
+              "Plan Rows": 1
+            },
+            {
+              "Parent Relationship": "Inner",
+              "Total Cost": 34.14,
+              "Recheck Cond": "(mov_id \u003d movie.mov_id)",
+              "Plans": [
+                {
+                  "Parent Relationship": "Outer",
+                  "Total Cost": 4.36,
+                  "Parallel Aware": false,
+                  "Node Type": "Bitmap Index Scan",
+                  "Index Name": "idx_movie_cast_mov_id",
+                  "Plan Width": 0,
+                  "Startup Cost": 0.0,
+                  "Index Cond": "(mov_id \u003d movie.mov_id)",
+                  "Plan Rows": 10
+                }
+              ],
+              "Relation Name": "movie_cast",
+              "Parallel Aware": false,
+              "Alias": "movie_cast",
+              "Node Type": "Bitmap Heap Scan",
+              "Plan Width": 8,
+              "Startup Cost": 4.36,
+              "Plan Rows": 10
+            }
+          ],
+          "Parallel Aware": false,
+          "Node Type": "Nested Loop",
+          "Join Type": "Inner",
+          "Plan Width": 4,
+          "Startup Cost": 4.36,
+          "Plan Rows": 10,
+          "Inner Unique": false
+        }
+      ],
+      "Parallel Aware": false,
+      "Node Type": "Aggregate",
+      "Plan Width": 4,
+      "Strategy": "Hashed",
+      "Startup Cost": 42.28,
+      "Group Key": [
+        "movie_cast.act_id"
+      ],
+      "Plan Rows": 10,
+      "Partial Mode": "Simple"
+    },
+    {
+      "Parent Relationship": "Inner",
+      "Total Cost": 0.09,
+      "Scan Direction": "NoMovement",
+      "Relation Name": "actor",
+      "Parallel Aware": false,
+      "Alias": "actor",
+      "Node Type": "Index Scan",
+      "Index Name": "idx_actor_act_id",
+      "Plan Width": 48,
+      "Startup Cost": 0.0,
+      "Index Cond": "(act_id \u003d movie_cast.act_id)",
+      "Plan Rows": 1
+    }
+  ],
+  "Parallel Aware": false,
+  "Node Type": "Nested Loop",
+  "Join Type": "Inner",
+  "Plan Width": 48,
+  "Startup Cost": 42.28,
+  "Plan Rows": 10,
+  "Inner Unique": true
+}
+
+------------------------------
+
+Indicies Configuration #25:
+Index hash on column act_id in table actor
+Index hash on column mov_id in table movie_cast
+
+------------------------------
+
+1. The Total Cost of the Plan = 67.47
+2. The Estimated Size of the Result Set = 10
+3. The Plan of the Query:
+{
+  "Total Cost": 67.47,
+  "Plans": [
+    {
+      "Parent Relationship": "Outer",
+      "Total Cost": 66.58,
+      "Plans": [
+        {
+          "Parent Relationship": "Outer",
+          "Total Cost": 66.45,
+          "Plans": [
+            {
+              "Parent Relationship": "Outer",
+              "Total Cost": 32.5,
+              "Relation Name": "movie",
+              "Parallel Aware": false,
+              "Filter": "(mov_title \u003d \u0027movie1\u0027::bpchar)",
+              "Alias": "movie",
+              "Node Type": "Seq Scan",
+              "Plan Width": 4,
+              "Startup Cost": 0.0,
+              "Plan Rows": 1
+            },
+            {
+              "Parent Relationship": "Inner",
+              "Total Cost": 33.85,
+              "Recheck Cond": "(mov_id \u003d movie.mov_id)",
+              "Plans": [
+                {
+                  "Parent Relationship": "Outer",
+                  "Total Cost": 4.08,
+                  "Parallel Aware": false,
+                  "Node Type": "Bitmap Index Scan",
+                  "Index Name": "idx_movie_cast_mov_id",
+                  "Plan Width": 0,
+                  "Startup Cost": 0.0,
+                  "Index Cond": "(mov_id \u003d movie.mov_id)",
+                  "Plan Rows": 10
+                }
+              ],
+              "Relation Name": "movie_cast",
+              "Parallel Aware": false,
+              "Alias": "movie_cast",
+              "Node Type": "Bitmap Heap Scan",
+              "Plan Width": 8,
+              "Startup Cost": 4.08,
+              "Plan Rows": 10
+            }
+          ],
+          "Parallel Aware": false,
+          "Node Type": "Nested Loop",
+          "Join Type": "Inner",
+          "Plan Width": 4,
+          "Startup Cost": 4.08,
+          "Plan Rows": 10,
+          "Inner Unique": false
+        }
+      ],
+      "Parallel Aware": false,
+      "Node Type": "Aggregate",
+      "Plan Width": 4,
+      "Strategy": "Hashed",
+      "Startup Cost": 66.48,
+      "Group Key": [
+        "movie_cast.act_id"
+      ],
+      "Plan Rows": 10,
+      "Partial Mode": "Simple"
+    },
+    {
+      "Parent Relationship": "Inner",
+      "Total Cost": 0.09,
+      "Scan Direction": "NoMovement",
+      "Relation Name": "actor",
+      "Parallel Aware": false,
+      "Alias": "actor",
+      "Node Type": "Index Scan",
+      "Index Name": "idx_actor_act_id",
+      "Plan Width": 48,
+      "Startup Cost": 0.0,
+      "Index Cond": "(act_id \u003d movie_cast.act_id)",
+      "Plan Rows": 1
+    }
+  ],
+  "Parallel Aware": false,
+  "Node Type": "Nested Loop",
+  "Join Type": "Inner",
+  "Plan Width": 48,
+  "Startup Cost": 66.48,
+  "Plan Rows": 10,
+  "Inner Unique": true
+}
+
+------------------------------
+
+Indicies Configuration #26:
+Index hash on column act_id in table actor
+Index hash on column mov_id in table movie_cast
+Index btree on column mov_title in table movie
+
+------------------------------
+
+1. The Total Cost of the Plan = 43.26
+2. The Estimated Size of the Result Set = 10
+3. The Plan of the Query:
+{
+  "Total Cost": 43.26,
+  "Plans": [
+    {
+      "Parent Relationship": "Outer",
+      "Total Cost": 42.37,
+      "Plans": [
+        {
+          "Parent Relationship": "Outer",
+          "Total Cost": 42.24,
+          "Plans": [
+            {
+              "Parent Relationship": "Outer",
+              "Total Cost": 8.29,
+              "Scan Direction": "Forward",
+              "Relation Name": "movie",
+              "Parallel Aware": false,
+              "Alias": "movie",
+              "Node Type": "Index Scan",
+              "Index Name": "idx_movie_mov_title",
+              "Plan Width": 4,
+              "Startup Cost": 0.28,
+              "Index Cond": "(mov_title \u003d \u0027movie1\u0027::bpchar)",
+              "Plan Rows": 1
+            },
+            {
+              "Parent Relationship": "Inner",
+              "Total Cost": 33.85,
+              "Recheck Cond": "(mov_id \u003d movie.mov_id)",
+              "Plans": [
+                {
+                  "Parent Relationship": "Outer",
+                  "Total Cost": 4.08,
+                  "Parallel Aware": false,
+                  "Node Type": "Bitmap Index Scan",
+                  "Index Name": "idx_movie_cast_mov_id",
+                  "Plan Width": 0,
+                  "Startup Cost": 0.0,
+                  "Index Cond": "(mov_id \u003d movie.mov_id)",
+                  "Plan Rows": 10
+                }
+              ],
+              "Relation Name": "movie_cast",
+              "Parallel Aware": false,
+              "Alias": "movie_cast",
+              "Node Type": "Bitmap Heap Scan",
+              "Plan Width": 8,
+              "Startup Cost": 4.08,
+              "Plan Rows": 10
+            }
+          ],
+          "Parallel Aware": false,
+          "Node Type": "Nested Loop",
+          "Join Type": "Inner",
+          "Plan Width": 4,
+          "Startup Cost": 4.35,
+          "Plan Rows": 10,
+          "Inner Unique": false
+        }
+      ],
+      "Parallel Aware": false,
+      "Node Type": "Aggregate",
+      "Plan Width": 4,
+      "Strategy": "Hashed",
+      "Startup Cost": 42.27,
+      "Group Key": [
+        "movie_cast.act_id"
+      ],
+      "Plan Rows": 10,
+      "Partial Mode": "Simple"
+    },
+    {
+      "Parent Relationship": "Inner",
+      "Total Cost": 0.09,
+      "Scan Direction": "NoMovement",
+      "Relation Name": "actor",
+      "Parallel Aware": false,
+      "Alias": "actor",
+      "Node Type": "Index Scan",
+      "Index Name": "idx_actor_act_id",
+      "Plan Width": 48,
+      "Startup Cost": 0.0,
+      "Index Cond": "(act_id \u003d movie_cast.act_id)",
+      "Plan Rows": 1
+    }
+  ],
+  "Parallel Aware": false,
+  "Node Type": "Nested Loop",
+  "Join Type": "Inner",
+  "Plan Width": 48,
+  "Startup Cost": 42.27,
+  "Plan Rows": 10,
+  "Inner Unique": true
+}
+
+------------------------------
+
+Indicies Configuration #27:
+Index hash on column act_id in table actor
+Index hash on column mov_id in table movie_cast
+Index hash on column mov_title in table movie
+
+------------------------------
+
+1. The Total Cost of the Plan = 42.99
+2. The Estimated Size of the Result Set = 10
+3. The Plan of the Query:
+{
+  "Total Cost": 42.99,
+  "Plans": [
+    {
+      "Parent Relationship": "Outer",
+      "Total Cost": 42.09,
+      "Plans": [
+        {
+          "Parent Relationship": "Outer",
+          "Total Cost": 41.97,
+          "Plans": [
+            {
+              "Parent Relationship": "Outer",
+              "Total Cost": 8.02,
+              "Scan Direction": "NoMovement",
+              "Relation Name": "movie",
+              "Parallel Aware": false,
+              "Alias": "movie",
+              "Node Type": "Index Scan",
+              "Index Name": "idx_movie_mov_title",
+              "Plan Width": 4,
+              "Startup Cost": 0.0,
+              "Index Cond": "(mov_title \u003d \u0027movie1\u0027::bpchar)",
+              "Plan Rows": 1
+            },
+            {
+              "Parent Relationship": "Inner",
+              "Total Cost": 33.85,
+              "Recheck Cond": "(mov_id \u003d movie.mov_id)",
+              "Plans": [
+                {
+                  "Parent Relationship": "Outer",
+                  "Total Cost": 4.08,
+                  "Parallel Aware": false,
+                  "Node Type": "Bitmap Index Scan",
+                  "Index Name": "idx_movie_cast_mov_id",
+                  "Plan Width": 0,
+                  "Startup Cost": 0.0,
+                  "Index Cond": "(mov_id \u003d movie.mov_id)",
+                  "Plan Rows": 10
+                }
+              ],
+              "Relation Name": "movie_cast",
+              "Parallel Aware": false,
+              "Alias": "movie_cast",
+              "Node Type": "Bitmap Heap Scan",
+              "Plan Width": 8,
+              "Startup Cost": 4.08,
+              "Plan Rows": 10
+            }
+          ],
+          "Parallel Aware": false,
+          "Node Type": "Nested Loop",
+          "Join Type": "Inner",
+          "Plan Width": 4,
+          "Startup Cost": 4.08,
+          "Plan Rows": 10,
+          "Inner Unique": false
+        }
+      ],
+      "Parallel Aware": false,
+      "Node Type": "Aggregate",
+      "Plan Width": 4,
+      "Strategy": "Hashed",
+      "Startup Cost": 41.99,
+      "Group Key": [
+        "movie_cast.act_id"
+      ],
+      "Plan Rows": 10,
+      "Partial Mode": "Simple"
+    },
+    {
+      "Parent Relationship": "Inner",
+      "Total Cost": 0.09,
+      "Scan Direction": "NoMovement",
+      "Relation Name": "actor",
+      "Parallel Aware": false,
+      "Alias": "actor",
+      "Node Type": "Index Scan",
+      "Index Name": "idx_actor_act_id",
+      "Plan Width": 48,
+      "Startup Cost": 0.0,
+      "Index Cond": "(act_id \u003d movie_cast.act_id)",
+      "Plan Rows": 1
+    }
+  ],
+  "Parallel Aware": false,
+  "Node Type": "Nested Loop",
+  "Join Type": "Inner",
+  "Plan Width": 48,
+  "Startup Cost": 41.99,
+  "Plan Rows": 10,
+  "Inner Unique": true
+}
+The Optimal Configuration is Number 27 with Total Cost = 42.990000
+
+##############################
+
+End of Query Analyzation
+
+##############################
+
