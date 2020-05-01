@@ -2,8 +2,6 @@
 
 Analyzing different SQL queries by measuring the cost and the expected result set size of each query before and after creating indices.
 
-<br/>
-
 ## Overview
 
 There are seventeen queries distributed on five different schemas. For each schema various number of entries are inserted to ensure that no query outputs an empty result set. After that the code tries every possible index configuration using a brute-force approach for each query and finds the optimal configuration(s) that produces the logical plan with the lowest estimated cost.
