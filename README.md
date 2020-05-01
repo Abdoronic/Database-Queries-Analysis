@@ -10,6 +10,7 @@ There are seventeen queries distributed on five different schemas. For each sche
 
 1. **Import the code as an Eclipse project.** It's recommended to use Eclipse as the it's exported as an Eclipse project.
 1. **Install the dependencies.** Add the three jar files in the `./Dependencies` directory to the Eclipse projcet by adding them to the project build path.
+1. **Populate the Database** by running the different schema files in the `./src/schemas` directory.
 1. **Run the code** from the `./src/core/Main.java` class's main method.
 
 
