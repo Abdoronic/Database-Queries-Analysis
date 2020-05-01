@@ -6,8 +6,6 @@ Analyzing different SQL queries by measuring the cost and the expected result se
 
 There are seventeen queries distributed on five different schemas. For each schema various number of entries are inserted to ensure that no query outputs an empty result set. After that the code tries every possible index configuration using a brute-force approach for each query and finds the optimal configuration(s) that produces the logical plan with the lowest estimated cost.
 
-<br/>
-
 ## Running the code localy
 
 1. **Import the code as an Eclipse project.** It's recommended to use Eclipse as the it's exported as an Eclipse project.
