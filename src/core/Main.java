@@ -254,7 +254,6 @@ public class Main {
 	}
 
 	public static void main(String[] args) {
-
 		Query[] queries = getAllQueries();
 		long startTime = System.currentTimeMillis();
 		for (int i = 1; i < queries.length; i++) {
@@ -265,7 +264,7 @@ public class Main {
 				e.printStackTrace(System.err);
 			}
 			dbHandler = new DBHandler(out);
-
+			
 			printLightDivider(30);
 			long queryStartTime = System.currentTimeMillis();
 			System.out.println("Analyzing Query #" + i);
